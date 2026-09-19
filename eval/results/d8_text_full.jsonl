@@ -1,32 +1,32 @@
 {"id": "T001", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条"], "expected": ["广告法·第九条"]}
-{"id": "T002", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条"], "expected": ["广告法·第九条", "广告法·第十一条", "广告法·第二十八条"]}
+{"id": "T002", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条"], "expected": ["广告法·第九条", "广告法·第十一条", "广告法·第二十八条"]}
 {"id": "T003", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条"], "expected": ["广告法·第九条"]}
 {"id": "T004", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条"], "expected": ["广告法·第九条"]}
 {"id": "T005", "gt": "violation", "risk": "violation", "cited": ["广告法·第二十八条", "广告法·第二十八条", "广告法·第二十八条"], "expected": ["广告法·第二十八条"]}
 {"id": "T006", "gt": "violation", "risk": "violation", "cited": ["广告法·第二十八条"], "expected": ["广告法·第二十八条"]}
-{"id": "T007", "gt": "violation", "risk": "violation", "cited": ["广告法·第二十八条", "广告法·第二十八条"], "expected": ["广告法·第二十八条", "广告法·第十七条"]}
+{"id": "T007", "gt": "violation", "risk": "suspicious", "cited": ["广告法·第二十八条", "广告法·第二十八条"], "expected": ["广告法·第二十八条", "广告法·第十七条"]}
 {"id": "T008", "gt": "violation", "risk": "violation", "cited": ["广告法·第十七条", "广告法·第十七条"], "expected": ["广告法·第十七条"]}
 {"id": "T009", "gt": "violation", "risk": "violation", "cited": ["广告法·第十七条", "广告法·第十八条"], "expected": ["广告法·第十七条"]}
-{"id": "T010", "gt": "violation", "risk": "violation", "cited": ["广告法·第十七条"], "expected": ["广告法·第十七条"]}
+{"id": "T010", "gt": "violation", "risk": "violation", "cited": ["广告法·第十七条", "广告法·第十七条", "广告法·第十六条"], "expected": ["广告法·第十七条"]}
 {"id": "T011", "gt": "violation", "risk": "violation", "cited": ["广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条"], "expected": ["广告法·第十八条"]}
-{"id": "T012", "gt": "violation", "risk": "violation", "cited": ["广告法·第十八条", "广告法·第十八条", "广告法·第十八条"], "expected": ["广告法·第十八条", "广告法·第十七条"]}
+{"id": "T012", "gt": "violation", "risk": "violation", "cited": ["广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条"], "expected": ["广告法·第十八条", "广告法·第十七条"]}
 {"id": "T013", "gt": "violation", "risk": "violation", "cited": ["广告法·第十三条", "广告法·第四条", "广告法·第十三条"], "expected": ["广告法·第十三条", "民法典·第一千零二十四条"]}
-{"id": "T014", "gt": "violation", "risk": "violation", "cited": ["广告法·第十三条", "广告法·第十三条"], "expected": ["广告法·第十三条"]}
+{"id": "T014", "gt": "violation", "risk": "violation", "cited": ["广告法·第十三条"], "expected": ["广告法·第十三条"]}
 {"id": "T015", "gt": "violation", "risk": "suspicious", "cited": ["广告法·第十八条", "广告法·第六十一条"], "expected": ["民法典·第一千零一十九条", "广告法·第二十八条"]}
 {"id": "T016", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条"], "expected": ["广告法·第九条"]}
-{"id": "S001", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第三十一条", "广告法·第三十一条"], "expected": ["广告法·第九条"]}
-{"id": "S002", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第三十六条"], "expected": ["广告法·第十一条", "广告法·第二十八条"]}
+{"id": "S001", "gt": "suspicious", "risk": "compliant", "cited": [], "expected": ["广告法·第九条"]}
+{"id": "S002", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第三十一条"], "expected": ["广告法·第十一条", "广告法·第二十八条"]}
 {"id": "S003", "gt": "suspicious", "risk": "violation", "cited": ["广告法·第十七条", "广告法·第十七条"], "expected": ["广告法·第十七条"]}
 {"id": "S004", "gt": "suspicious", "risk": "compliant", "cited": [], "expected": ["广告法·第十七条", "广告法·第二十八条"]}
 {"id": "S005", "gt": "suspicious", "risk": "compliant", "cited": [], "expected": ["民法典·第一千零一十九条"]}
 {"id": "S006", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第五十九条"], "expected": ["广告法·第十一条", "广告法·第二十八条"]}
-{"id": "S007", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第九条"], "expected": ["广告法·第九条"]}
-{"id": "S008", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第十八条"], "expected": ["广告法·第二十八条"]}
+{"id": "S007", "gt": "suspicious", "risk": "compliant", "cited": [], "expected": ["广告法·第九条"]}
+{"id": "S008", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第十八条", "广告法·第十八条"], "expected": ["广告法·第二十八条"]}
 {"id": "C001", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
 {"id": "C002", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
-{"id": "C003", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第九条"], "expected": []}
+{"id": "C003", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
 {"id": "C004", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
-{"id": "C005", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第四条"], "expected": []}
+{"id": "C005", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
 {"id": "C006", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
 {"id": "C007", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}
 {"id": "C008", "gt": "compliant", "risk": "compliant", "cited": [], "expected": []}

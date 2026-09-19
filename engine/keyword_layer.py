@@ -19,6 +19,11 @@ from engine.rag_layer import norm_type
 ROOT = Path(__file__).resolve().parent.parent
 WORDS_PATH = ROOT / "data" / "banned_words.txt"
 
+# 语境白名单（D9）：命中词在特定合法搭配中不算违规，按 badcase 维护
+CONTEXT_WHITELIST = [
+    (re.compile(r"第一[人称波件次]"), "第一"),
+]
+
 _HEADER_RE = re.compile(r"^#\s*=+\s*(.+?)\s*=+\s*$")
 
 
@@ -77,9 +82,17 @@ def match(text: str, words: list[dict] | None = None) -> list[dict]:
 
 
 def audit(text: str, words: list[dict] | None = None) -> list[dict]:
-    """关键词通道：命中 → schema 形状的 findings（source=keyword，片段取命中词）。"""
+    """关键词通道：命中 → schema 形状的 findings（source=keyword，片段取命中词）。
+
+    语境白名单内的命中（如「第一人称」）直接跳过。
+    """
     findings = []
+    t = normalize(text)
     for h in match(text, words):
+        start, end = h["span"]
+        context = t[max(0, start - 8):end + 8]
+        if any(pat.search(context) for pat, w in CONTEXT_WHITELIST if w == h["word"]):
+            continue
         findings.append({
             "type": norm_type(h["type"]),
             "fragment": h["word"],

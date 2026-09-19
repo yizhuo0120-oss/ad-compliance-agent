@@ -3,51 +3,51 @@
   "tag": "text-RAG",
   "n": 40,
   "catch_rate": 1.0,
-  "fp_rate": 0.125,
-  "suspicious_hit": "6/8",
+  "fp_rate": 0.0,
+  "suspicious_hit": "4/8",
   "vector_hit_rate": 0.4167,
-  "citation_acc": 0.7381,
-  "citations": 42,
+  "citation_acc": 0.7692,
+  "citations": 39,
   "cross": {
-   "compliant->compliant": 14,
-   "compliant->suspicious": 2,
-   "suspicious->compliant": 2,
-   "suspicious->suspicious": 5,
+   "compliant->compliant": 16,
+   "suspicious->compliant": 4,
+   "suspicious->suspicious": 3,
    "suspicious->violation": 1,
-   "violation->suspicious": 1,
-   "violation->violation": 15
+   "violation->suspicious": 2,
+   "violation->violation": 14
   },
-  "elapsed_s": 204
+  "elapsed_s": 114
  },
  "text_rag_off": {
   "tag": "text-无RAG",
   "n": 40,
   "catch_rate": 1.0,
-  "fp_rate": 0.3125,
-  "suspicious_hit": "8/8",
+  "fp_rate": 0.125,
+  "suspicious_hit": "7/8",
   "vector_hit_rate": 0.4167,
-  "citation_acc": 0.5085,
-  "citations": 59,
+  "citation_acc": 0.4565,
+  "citations": 46,
   "cross": {
-   "compliant->compliant": 11,
-   "compliant->suspicious": 5,
-   "suspicious->suspicious": 6,
+   "compliant->compliant": 14,
+   "compliant->suspicious": 2,
+   "suspicious->compliant": 1,
+   "suspicious->suspicious": 5,
    "suspicious->violation": 2,
-   "violation->suspicious": 3,
-   "violation->violation": 13
+   "violation->suspicious": 2,
+   "violation->violation": 14
   },
-  "elapsed_s": 252
+  "elapsed_s": 151
  },
  "image": {
   "tag": "image",
   "n": 22,
   "catch_rate": 1.0,
-  "fp_rate": 0.9286,
-  "citation_acc": 0.4737,
-  "citations": 57,
+  "fp_rate": 0.0,
+  "citation_acc": 0.8,
+  "citations": 30,
   "transcript_completeness": 1.0,
   "transcript_total": 23,
   "transcript_stability_collected": 0.7606,
-  "elapsed_s": 663
+  "elapsed_s": 326
  }
 }

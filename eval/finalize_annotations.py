@@ -25,13 +25,17 @@ DECISIONS = {
     "475a3f0bcf0b32a8b93ef0441a026aeb.png": ("suspicious", ["极限词"], ["广告法·第九条"], "英文标语含 best；模特肖像授权无法核实，不单独计违规"),
     "4ac208e8c88160e662b7ad9ae59beac2.png": ("compliant", [], [], "图库水印（昵享网），非广告内容违规"),
     "65117f3501ae850a6f46917749073b7a.png": ("compliant", [], [], "节庆卡通海报，无违规"),
-    "6a73d4dc769a068d37b8cfda82d572e6.png": ("compliant", [], [], "国庆促销，限时六折表述正常"),
+    "6a73d4dc769a068d37b8cfda82d572e6.png": ("suspicious", ["虚假误导"], ["广告法·第十一条", "广告法·第二十八条"],
+                                             "D9 复核修正：引擎指出促销时间「20:00AM-10.07 23.59AM」制式混用且起止矛盾，"
+                                             "人工复核属实，GT 由 compliant 改为 suspicious"),
     "7f14bdc2c67017418119688e02243dc9.png": ("compliant", [], [], "品牌态度标语，「不做女神做自己」无违规"),
     "944f8afbc29315fd117241cd2d76b47b.png": ("compliant", [], [], "时装上新海报，无违规"),
     "a4ce7587e01a0217b057e62817139891.png": ("compliant", [], [], "品牌情感文案海报，无违规"),
     "d50fe18eb62986ce02db5f53a61b9e1f.png": ("compliant", [], [], "羊毛衫专场直播预告，无违规"),
     "f7d323e50e9f7edcb0a559fe2a657781.png": ("compliant", [], [], "经典百搭新品上市，无违规"),
-    "ffce0adf7b09e3ddfef88857e4c4c04d.png": ("compliant", [], [], "地产楼盘品牌海报，未见升值回报承诺"),
+    "ffce0adf7b09e3ddfef88857e4c4c04d.png": ("suspicious", ["低俗"], ["广告法·第九条"],
+                                             "D9 复核修正：间隔字母「P E A C O C K L A K E」连读含不雅俚语，"
+                                             "人工复核属可争议的边界案例，GT 由 compliant 改为 suspicious"),
 }
 
 # —— 合成图构造真值 ——

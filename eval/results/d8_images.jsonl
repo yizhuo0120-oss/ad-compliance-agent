@@ -1,22 +1,22 @@
-{"image": "01072aceb8127ff0fa81803648f52993.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第三十八条"]}
-{"image": "0431bec571919a3d564f0f03266156e8.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第九条", "广告法·第四条", "广告法·第四条"]}
-{"image": "0ae63c4441f168ddc7d367cf2abd86d6.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第三十八条", "广告法·第五十六条"]}
-{"image": "2059cad1c0ee189bc2bb0b9f05516074.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第九条", "广告法·第四条", "广告法·第四条"]}
-{"image": "3d125ef88d99bcbe45404eefe41c827c.png", "gt": "compliant", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条", "广告法·第九条"]}
-{"image": "3d8e49b822a0ce49a6c2cfa42aeb13f3.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第九条"]}
-{"image": "44e0c140968efadd59c0a7caacba2edb.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第三十八条"]}
-{"image": "475a3f0bcf0b32a8b93ef0441a026aeb.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第九条", "广告法·第四条", "广告法·第九条"]}
+{"image": "01072aceb8127ff0fa81803648f52993.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "0431bec571919a3d564f0f03266156e8.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "0ae63c4441f168ddc7d367cf2abd86d6.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第五十七条"]}
+{"image": "2059cad1c0ee189bc2bb0b9f05516074.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第九条"]}
+{"image": "3d125ef88d99bcbe45404eefe41c827c.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "3d8e49b822a0ce49a6c2cfa42aeb13f3.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "44e0c140968efadd59c0a7caacba2edb.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "475a3f0bcf0b32a8b93ef0441a026aeb.png", "gt": "suspicious", "risk": "violation", "cited": ["广告法·第九条"]}
 {"image": "4ac208e8c88160e662b7ad9ae59beac2.png", "gt": "compliant", "risk": "compliant", "cited": []}
-{"image": "65117f3501ae850a6f46917749073b7a.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第九条"]}
-{"image": "6a73d4dc769a068d37b8cfda82d572e6.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第三条", "广告法·第四条"]}
-{"image": "7f14bdc2c67017418119688e02243dc9.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第四条"]}
-{"image": "944f8afbc29315fd117241cd2d76b47b.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第九条"]}
-{"image": "a4ce7587e01a0217b057e62817139891.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第四条"]}
-{"image": "d50fe18eb62986ce02db5f53a61b9e1f.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第六十八条（四）在广告中未经同意使用他人名义或者形象的"]}
-{"image": "f7d323e50e9f7edcb0a559fe2a657781.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第四条"]}
-{"image": "ffce0adf7b09e3ddfef88857e4c4c04d.png", "gt": "compliant", "risk": "suspicious", "cited": ["广告法·第三条", "广告法·第九条", "广告法·第四条"]}
-{"image": "syn_violation_extreme.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条", "广告法·第九条", "广告法·第四条", "广告法·第四条"]}
+{"image": "65117f3501ae850a6f46917749073b7a.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "6a73d4dc769a068d37b8cfda82d572e6.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第四条"]}
+{"image": "7f14bdc2c67017418119688e02243dc9.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "944f8afbc29315fd117241cd2d76b47b.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "a4ce7587e01a0217b057e62817139891.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "d50fe18eb62986ce02db5f53a61b9e1f.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "f7d323e50e9f7edcb0a559fe2a657781.png", "gt": "compliant", "risk": "compliant", "cited": []}
+{"image": "ffce0adf7b09e3ddfef88857e4c4c04d.png", "gt": "suspicious", "risk": "suspicious", "cited": ["广告法·第九条", "广告法·第四条"]}
+{"image": "syn_violation_extreme.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条", "广告法·第九条", "广告法·第四条"]}
 {"image": "syn_violation_medical.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第十七条", "广告法·第十七条", "广告法·第十七条", "广告法·第十七条", "广告法·第十七条", "广告法·第十七条"]}
-{"image": "syn_violation_health.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条"]}
-{"image": "syn_violation_disparage.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第十三条", "民法典·第一千零二十四条", "广告法·第四条", "广告法·第四条"]}
+{"image": "syn_violation_health.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条", "广告法·第十八条"]}
+{"image": "syn_violation_disparage.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第十三条", "广告法·第十三条", "广告法·第十三条", "广告法·第八条"]}
 {"image": "syn_dense_smalltext.png", "gt": "violation", "risk": "violation", "cited": ["广告法·第九条", "广告法·第九条", "广告法·第九条", "广告法·第九条", "广告法·第八条"]}

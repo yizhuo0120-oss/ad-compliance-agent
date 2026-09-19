@@ -24,9 +24,16 @@ def test_match_hits_and_spans():
 
 
 def test_first_person_trap_is_mechanically_hit():
-    # 「第一人称」包含「第一」——关键词层必然命中（弱信号），
-    # 最终合规判定由语义层裁定，这正是双层设计的意义
+    # 「第一人称」包含「第一」——关键词层命中后由语境白名单排除（D9），
+    # 语义层同样应判合规；这正是双层+白名单设计的意义
     words = load_words()
     findings = audit("第一人称视角实拍，所见即所得", words)
-    assert findings, "关键词层应命中（弱信号）"
-    assert findings[0]["source"] == "keyword"
+    assert not findings, "「第一人称」应被语境白名单排除"
+
+
+def test_real_violation_not_whitelisted():
+    words = load_words()
+    findings = audit("全网第一品牌，品质最好", words)
+    frags = [f["fragment"] for f in findings]
+    assert "第一" in frags, "真违规「全网第一」不能被白名单误伤"
+    assert "最好" in frags

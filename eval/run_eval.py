@@ -47,10 +47,16 @@ def eval_text(llm, index, cases, use_rag, tag):
     vec_hit = vec_total = 0
     t0 = time.time()
     for i, c in enumerate(cases, 1):
-        try:
-            report = finalize(audit_text(llm, c["text"], index, use_rag=use_rag))
-        except Exception as e:
-            report = {"risk_level": "error", "findings": [], "error": str(e)[:150]}
+        report = None
+        for attempt in (1, 2):  # 偶发 API/JSON 抖动重试一次
+            try:
+                report = finalize(audit_text(llm, c["text"], index, use_rag=use_rag))
+                break
+            except Exception as e:
+                if attempt == 2:
+                    report = {"risk_level": "error", "findings": [], "error": str(e)[:150]}
+                else:
+                    time.sleep(3)
         risk = report.get("risk_level", "error")
         exp = [norm_ref(a) for a in c.get("expected_articles", [])]
 
@@ -105,10 +111,16 @@ def eval_images(llm, index, annos):
     t0 = time.time()
     for i, a in enumerate(annos, 1):
         img = ROOT / "data" / "eval_images" / a["image"]
-        try:
-            report = finalize(audit_image(llm, img, index))
-        except Exception as e:
-            report = {"risk_level": "error", "findings": [], "error": str(e)[:150]}
+        report = None
+        for attempt in (1, 2):
+            try:
+                report = finalize(audit_image(llm, img, index))
+                break
+            except Exception as e:
+                if attempt == 2:
+                    report = {"risk_level": "error", "findings": [], "error": str(e)[:150]}
+                else:
+                    time.sleep(3)
         risk = report.get("risk_level", "error")
         exp = [norm_ref(x) for x in a.get("expected_articles", [])]
 
