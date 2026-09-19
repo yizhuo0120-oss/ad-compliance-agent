@@ -35,7 +35,13 @@ docs/report_schema.md   报告 schema 定稿文档（卡1 产出）
   - 违禁词库 206 词；文案评测集 40 条（16 违规 / 8 疑似 / 16 合规）
   - 海报评测集 22 张（17 采集 + 5 合成违规），标注 `data/eval_images/annotations.jsonl`
   - 验收：`python eval/eval_dataset.py` → 双形态可加载、分布达标 ✅
-- [ ] 卡4 双通道审核引擎
+- [x] 卡4 双通道审核引擎 ✅
+  - `keyword_layer.py`：归一化（全半角/繁简）+ 分类词库，单测 4/4
+  - `rag_layer.py`：BGE+FAISS **混合检索**（向量 top-k ∪ 关键词层预期法条）+ LLM 逐条判断 + 八类标签归一
+  - `image_channel.py`：VL 转写 → 转写文字复用文案通道；画面视觉风险独立判定
+  - `pipeline.py`：双通道合并 + schema v1.0 校验
+  - D6 基线（40 条文案）：粗拦截率 16/16=100%，粗误报率 2/16=12.5%（两条误报均为陷阱样本，D9 调优靶）
+  - D7 自查：违规合成图=violation ✅；小字密集图 8/8 段转写、5 处小字违规全捕获 ✅；合规采集图=suspicious（视觉保守误报，D9 靶）
 - [ ] 卡5 评估出数据（拦截率 ≥95%、误报率 ≤10%）
 - [ ] 卡6 Streamlit Demo
 

@@ -13,7 +13,11 @@
       "required": ["texts", "visual_elements"],
       "properties": {
         "texts": { "type": "array", "items": { "type": "string" } },
-        "visual_elements": { "type": "array", "items": { "type": "string" } }
+        "visual_elements": {
+          "description": "画面元素描述：一句话字符串或按元素拆分的数组",
+          "type": ["string", "array"],
+          "items": {"type": "string"}
+        }
       }
     },
     "risk_level": { "enum": ["violation", "suspicious", "compliant"] },
