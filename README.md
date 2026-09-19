@@ -29,7 +29,7 @@ docs/report_schema.md   报告 schema 定稿文档（卡1 产出）
 总排期见《第一期计划手册.md》（上一级目录）。当前进度：
 
 - [x] 卡1 立项定界：报告 schema 定稿 v1.0（docs/report_schema.md）
-- [ ] 卡2 环境与模型跑通：LLM / VL / Embedding，两条 hello 最小链路
+- [x] 卡2 环境与模型跑通：deepseek-flash 文本+视觉双链路 ✅（海报 6 行文字全部转写成功）
 - [ ] 卡3 法律语料 + 双形态标注评测集
 - [ ] 卡4 双通道审核引擎
 - [ ] 卡5 评估出数据（拦截率 ≥95%、误报率 ≤10%）
@@ -38,7 +38,11 @@ docs/report_schema.md   报告 schema 定稿文档（卡1 产出）
 ## 环境准备
 
 ```bash
-python -m venv .venv && .venv/Scripts/activate   # Windows
-pip install -r requirements.txt                  # 卡2 时创建
-cp .env.example .env                             # 填入真实 Key
+python -m venv .venv && .venv/Scripts/activate    # Windows
+pip install -r requirements.txt
+# .env 已就位（LLM_PROVIDER 控制供应商切换：deepseek | zhipu | dashscope，换模型零改码）
+
+python hello_text.py            # 违禁词最小链路（本地，零成本）
+python hello_image.py           # 视觉转写最小链路（调 API，默认转写 data/test_poster.png）
+python -m engine.llm_client     # 查看当前供应商与模型配置
 ```
