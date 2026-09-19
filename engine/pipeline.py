@@ -72,6 +72,7 @@ def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full")
 
     use_rag="full"：混合检索法条进提示词 + 回填条文引用（正式模式）
     use_rag="off" ：同模型但不含法条、凭自身知识判断（消融模式，quote 恒为空）
+    use_rag="none"：仅关键词层（Demo 对比模式）
     """
     t0 = time.time()
     kw = keyword_layer.audit(text)
@@ -79,8 +80,10 @@ def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full")
     extra_refs = [tuple(r.split("·", 1)) for f in kw for r in f.get("_law_refs", [])]
     if use_rag == "full":
         rag = rag_layer.audit_semantic(text, index, llm, extra_refs=extra_refs)
-    else:
+    elif use_rag == "off":
         rag = rag_layer.audit_semantic(text, index, llm, include_laws=False)
+    else:
+        rag = []
     findings = _merge(rag, kw)
     _fill_quote(findings)
     report = {
@@ -98,15 +101,18 @@ def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full")
     return _strip_internal(report)
 
 
-def audit_image(llm, image_path: str | Path, index: rag_layer.LawIndex) -> dict:
+def audit_image(llm, image_path: str | Path, index: rag_layer.LawIndex, use_rag: str = "full") -> dict:
     """图片通道：转写 → 转写文字走文案通道 + 视觉判定 → 合并报告。"""
     t0 = time.time()
     tr = image_channel.transcribe(llm, image_path)
     joined = "\n".join(f"{i}. {t}" for i, t in enumerate(tr["texts"], 1))
     kw = keyword_layer.audit(joined)
-    extra_refs = [tuple(r.split("·", 1)) for f in kw for r in f.get("_law_refs", [])]
-    rag = rag_layer.audit_semantic(joined, index, llm, extra_refs=extra_refs)
-    vis = image_channel.audit_visual(llm, tr["texts"], tr["visual_elements"], index)
+    if use_rag != "none":
+        extra_refs = [tuple(r.split("·", 1)) for f in kw for r in f.get("_law_refs", [])]
+        rag = rag_layer.audit_semantic(joined, index, llm, extra_refs=extra_refs)
+        vis = image_channel.audit_visual(llm, tr["texts"], tr["visual_elements"], index)
+    else:
+        rag, vis = [], []
     findings = _merge(vis, rag, kw)
     _fill_quote(findings)
     report = {
