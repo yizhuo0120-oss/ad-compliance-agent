@@ -1,0 +1,40 @@
+{"id": "T001", "text": "全网最低价，错过今天再等一年！", "label": "violation", "violation_type": "极限词", "expected_articles": ["广告法·第九条"]}
+{"id": "T002", "text": "行业第一品牌，销量连续五年全国第一", "label": "violation", "violation_type": "极限词", "expected_articles": ["广告法·第九条", "广告法·第十一条", "广告法·第二十八条"]}
+{"id": "T003", "text": "国家级工艺，世界级品质，值得信赖", "label": "violation", "violation_type": "极限词", "expected_articles": ["广告法·第九条"]}
+{"id": "T004", "text": "独家秘方，仅此一家，别无分店", "label": "violation", "violation_type": "极限词", "expected_articles": ["广告法·第九条"]}
+{"id": "T005", "text": "百分百正品，假一赔命", "label": "violation", "violation_type": "虚假误导", "expected_articles": ["广告法·第二十八条"]}
+{"id": "T006", "text": "国家免检产品，质量免检，放心购买", "label": "violation", "violation_type": "虚假误导", "expected_articles": ["广告法·第二十八条"]}
+{"id": "T007", "text": "七天美白见效，无效退款", "label": "violation", "violation_type": "虚假误导", "expected_articles": ["广告法·第二十八条", "广告法·第十七条"]}
+{"id": "T008", "text": "根治痘痘，消炎杀菌一步到位", "label": "violation", "violation_type": "医疗功效", "expected_articles": ["广告法·第十七条"]}
+{"id": "T009", "text": "降三高养生茶，糖尿病人群放心喝", "label": "violation", "violation_type": "医疗功效", "expected_articles": ["广告法·第十七条"]}
+{"id": "T010", "text": "医生推荐祛疤神器，临床验证有效", "label": "violation", "violation_type": "医疗功效", "expected_articles": ["广告法·第十七条"]}
+{"id": "T011", "text": "保健茶安全无副作用，有病治病无病防病", "label": "violation", "violation_type": "保健食品", "expected_articles": ["广告法·第十八条"]}
+{"id": "T012", "text": "彻底摆脱失眠困扰，可长期替代药物", "label": "violation", "violation_type": "保健食品", "expected_articles": ["广告法·第十八条", "广告法·第十七条"]}
+{"id": "T013", "text": "吊打同行，别家都是假货，我们才是正品", "label": "violation", "violation_type": "名誉权", "expected_articles": ["广告法·第十三条", "民法典·第一千零二十四条"]}
+{"id": "T014", "text": "碾压大牌品质，隔壁家根本没法比", "label": "violation", "violation_type": "名誉权", "expected_articles": ["广告法·第十三条"]}
+{"id": "T015", "text": "影后刘某倾情推荐，明星都在用的瘦身神器", "label": "violation", "violation_type": "肖像权", "expected_articles": ["民法典·第一千零一十九条", "广告法·第二十八条"]}
+{"id": "T016", "text": "性感尤物深夜上新，挑逗你的味蕾", "label": "violation", "violation_type": "低俗", "expected_articles": ["广告法·第九条"]}
+{"id": "S001", "text": "性价比之王，闭眼入不后悔", "label": "suspicious", "violation_type": "极限词", "expected_articles": ["广告法·第九条"]}
+{"id": "S002", "text": "销量领先，好评如潮", "label": "suspicious", "violation_type": "虚假误导", "expected_articles": ["广告法·第十一条", "广告法·第二十八条"]}
+{"id": "S003", "text": "医美级修护精华，敏感肌救星", "label": "suspicious", "violation_type": "医疗功效", "expected_articles": ["广告法·第十七条"]}
+{"id": "S004", "text": "祖传配方古法熬制，一抹见效", "label": "suspicious", "violation_type": "虚假误导", "expected_articles": ["广告法·第十七条", "广告法·第二十八条"]}
+{"id": "S005", "text": "明星同款妆容，下单立减五十", "label": "suspicious", "violation_type": "肖像权", "expected_articles": ["民法典·第一千零一十九条"]}
+{"id": "S006", "text": "全网爆卖十万件，卖爆了", "label": "suspicious", "violation_type": "虚假误导", "expected_articles": ["广告法·第十一条", "广告法·第二十八条"]}
+{"id": "S007", "text": "绝绝子！颜值天花板", "label": "suspicious", "violation_type": "极限词", "expected_articles": ["广告法·第九条"]}
+{"id": "S008", "text": "纯天然无添加，孕妇也能闭眼用", "label": "suspicious", "violation_type": "虚假误导", "expected_articles": ["广告法·第二十八条"]}
+{"id": "C001", "text": "新店开业，全场9折，欢迎进店选购", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C002", "text": "纯棉印花T恤，透气舒适，支持七天无理由退换", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C003", "text": "第一人称视角实拍，所见即所得", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C004", "text": "口感顺滑，回味甘甜，办公室下午茶好搭档", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C005", "text": "深层清洁毛孔，洗后不紧绷", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C006", "text": "维C含量丰富，酸甜可口", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C007", "text": "经典版型，久洗不变形", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C008", "text": "正品保障，支持专柜验货", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C009", "text": "买一送一，第二件半价", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C010", "text": "小众香水，适合日常通勤", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C011", "text": "本店营业至晚上十点，欢迎光临", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C012", "text": "精选云南直发鲜花，48小时保鲜到家", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C013", "text": "人体工学设计，久坐更轻松", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C014", "text": "新品体验价49.9元起", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C015", "text": "老字号糕点，传统手艺制作", "label": "compliant", "violation_type": null, "expected_articles": []}
+{"id": "C016", "text": "限时优惠，两件包邮", "label": "compliant", "violation_type": null, "expected_articles": []}

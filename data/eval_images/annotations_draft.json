@@ -1,0 +1,357 @@
+{
+ "01072aceb8127ff0fa81803648f52993.png": {
+  "texts": [
+   "FASHION",
+   "时尚女装",
+   "全场5折特惠",
+   "50% OFF",
+   "SALE JUST FOR YOU",
+   "初夏主义",
+   "软萌甜美",
+   "清新一夏",
+   "打开衣柜 妆点自己",
+   "SUMMER",
+   "Fashion",
+   "昵图网 www.nipic.com",
+   "ID:7141883 NO:20230306150329867104"
+  ],
+  "visual_elements": "米色背景的时尚女装宣传海报，一位穿印花连衣裙、蓝色高跟鞋的女性模特手持红色海星，周围有碎片拼贴特效，画面左上为蓝色艺术字标题与折扣信息，右侧竖排\"SUMMER\"，底部有手写体\"Fashion\"及昵图网水印，模特面部被打码模糊处理",
+  "suspected": []
+ },
+ "0431bec571919a3d564f0f03266156e8.png": {
+  "texts": [
+   "全场五折 速来抢购",
+   "FASHION STYLE",
+   "全场五折 速来抢购",
+   "双12狂欢 定义美丽",
+   "FASHION STYLE",
+   "12.12 0点",
+   "钜惠开抢",
+   "全场五折 速来抢购",
+   "FASHION STYLE",
+   "全场五折 速来抢购",
+   "FASHION STYLE",
+   "全场五折 速来抢购",
+   "FASHION STYLE",
+   "全场5折",
+   "封顶",
+   "FASHION STYLE",
+   "全场五折 速来抢购",
+   "FASHION STYLE",
+   "全场五折 速来抢购"
+  ],
+  "visual_elements": "一位女性模特穿千鸟格粗花呢外套并戴黑色皮手套，背景为灰褐色，配有双12五折促销文字与FASHION STYLE标识的广告海报。",
+  "suspected": [
+   {
+    "type": "虚假误导",
+    "fragment": "全场五折 速来抢购",
+    "why": "宣称全场五折但未标明适用商品范围或限制条件，若并非全部商品参与可能误导消费者。"
+   },
+   {
+    "type": "虚假误导",
+    "fragment": "全场5折 封顶",
+    "why": "若并非所有商品均以五折封顶，可能构成价格优惠范围的虚假宣传。"
+   }
+  ]
+ },
+ "0ae63c4441f168ddc7d367cf2abd86d6.png": {
+  "texts": [
+   "职得宠爱",
+   "秋4波",
+   "早秋上新 1件8折",
+   "TIME: 7.21-7.23",
+   "早秋 新品",
+   "Professional",
+   "店铺满200-20/400-50/600-70 分享券900-150",
+   "PEOPLE'S DAILY ONLINE FOCUSES ON CHINA NEWS.",
+   "CHINA SOCIETY: CHINESE CULTURE"
+  ],
+  "visual_elements": "一位戴棕色贝雷帽、穿米色短外套与棕色下装的女性模特手提包袋站在米色背景前，画面为女装早秋上新促销海报，含品牌/媒体英文小字与促销标识。",
+  "suspected": [
+   {
+    "type": "虚假误导",
+    "fragment": "PEOPLE'S DAILY ONLINE FOCUSES ON CHINA NEWS.",
+    "why": "海报角落标注人民网相关英文名称，易使消费者误认为该商品或店铺获官方媒体认证、推荐或背书。"
+   }
+  ]
+ },
+ "2059cad1c0ee189bc2bb0b9f05516074.png": {
+  "texts": [
+   "THE DEFINITION OF HAPPINESS IS NEVER SIMPLE",
+   "HAPPNESS",
+   "ACHIEVEE PERFECT ENGLISH WRITING",
+   "SIMPLE",
+   "YOUDAO HUMAN TRANSLATION IN THE MIDDLE OF WINTER",
+   "RELAXED",
+   "WINTER",
+   "TIME:",
+   "9.20 - 10.20",
+   "Autumn and winter",
+   "国庆狂欢季",
+   "3件85折 1件95折",
+   "店铺满200-20/400-50/600-70",
+   "分享满900-150"
+  ],
+  "visual_elements": "一位长发女性模特身穿浅黄色翻领短外套，内搭白底紫花碎花连衣裙，站在浅米色背景前，画面为杂志封面风格，带英文标题、活动时间与折扣促销文字及箭头装饰",
+  "suspected": [
+   {
+    "type": "极限词",
+    "fragment": "ACHIEVEE PERFECT ENGLISH WRITING",
+    "why": "英文广告语使用“PERFECT（完美的）”属绝对化用语，涉嫌违反广告法对绝对化用语的限制"
+   }
+  ]
+ },
+ "3d125ef88d99bcbe45404eefe41c827c.png": {
+  "texts": [
+   "SUMMER",
+   "NEW SUMMER",
+   "夏季新品／07",
+   "盛夏霓裳",
+   "NEW",
+   "SUMMER",
+   "N E W",
+   "夏季新品四折优惠起",
+   "S U M M E R",
+   "夏日新品第一波",
+   "The first wave of new summer products",
+   "MA-1",
+   "MA-1",
+   "MA-1"
+  ],
+  "visual_elements": "黄色背景前，一位金发女性模特穿着白色印花衬衫和卡其色长裤，周围点缀水果蔬菜，画面带有夏季新品促销文字。",
+  "suspected": []
+ },
+ "3d8e49b822a0ce49a6c2cfa42aeb13f3.png": {
+  "texts": [
+   "SPRING",
+   "NEW",
+   "春夏新势力周",
+   "部分商品",
+   "限时5折起",
+   "春季の尚新",
+   "GOOD",
+   "TIME",
+   "3.24 00:00",
+   "3.26 23:59",
+   "SPRING",
+   "FASHION"
+  ],
+  "visual_elements": "一位女性模特身穿白色针织开衫，手持白色马克杯，背景为浅绿色渐变，带有英文SPRING、NEW和GOOD等文字及星芒、线条装饰。",
+  "suspected": []
+ },
+ "44e0c140968efadd59c0a7caacba2edb.png": {
+  "texts": [
+   "SUMMER FASHION",
+   "潮流",
+   "满300减30",
+   "上不封顶",
+   "新品上市",
+   "SPRING",
+   "LIMITED-TIME OFFER",
+   "潮流の尚新",
+   "FASHION TREND",
+   "LIMITED-TIME OFFER"
+  ],
+  "visual_elements": "一位扎双麻花辫、身穿浅色碎花连衣裙和白色蕾丝袜的年轻女性模特，海报中另有两张同款模特的侧脸与半身特写，整体为夏季时尚促销海报风格，配有太阳、星形及几何线条等装饰元素",
+  "suspected": [
+   {
+    "type": "虚假误导",
+    "fragment": "上不封顶",
+    "why": "促销优惠承诺无上限，若实际活动中存在折扣或赠品上限，易对消费者造成误导"
+   }
+  ]
+ },
+ "475a3f0bcf0b32a8b93ef0441a026aeb.png": {
+  "texts": [
+   "Taobao creat ion t ime-limit ed act ivit ies discount more hurry t o buy it .",
+   "淘宝造物节",
+   "趁年轻就要造起来",
+   "活动时间：4月29号晚上八点开始",
+   "We don't pursue fashion, make fashion pursue us. We don't follow the so-called fashion, make",
+   "The so-called fashion is to follow the trend and walk in the direction of the times.",
+   "FASHION",
+   "FASHION",
+   "FASHION",
+   "fashion is different. The best thing about fashion is different. The best thing about fashion is that it can change a person. for their own.",
+   "OLIO",
+   "ore years, and more everything ...",
+   "POP UP",
+   "限时九折",
+   "POP UP",
+   "DO NOT CROSS POLICE LINE DO NOT CROSS POLICE LINE DO NOT CROSS"
+  ],
+  "visual_elements": "年轻女性模特戴黑色鸭舌帽、穿牛仔外套与短裤，背景为黑黄网格和黄色星形，有淘宝造物节字样及POP UP警戒线元素。",
+  "suspected": [
+   {
+    "type": "极限词",
+    "fragment": "The best thing about fashion",
+    "why": "英文最高级“best”属于绝对化用语，涉嫌违反广告法极限词规定。"
+   },
+   {
+    "type": "肖像权",
+    "fragment": "图中女性模特肖像",
+    "why": "广告海报使用真人模特形象，若未取得授权可能侵犯肖像权。"
+   }
+  ]
+ },
+ "4ac208e8c88160e662b7ad9ae59beac2.png": {
+  "texts": [
+   "新品上市 NEW",
+   "春季新品",
+   "SPRING NEW IN",
+   "全场新品8折起",
+   "全场购买满300元减60元",
+   "LOGO",
+   "BONJOUR",
+   "PRODUCT",
+   "昵享网 www.nipic.com",
+   "BY:1588... NO:52908001 15558838430"
+  ],
+  "visual_elements": "红色促销海报场景，主体为手绘服装穿搭（黑白条纹T恤、红色纱裙、黑色流苏单肩包、口红眼影等彩妆、黑色高跟鞋），配条纹与圆点装饰、品牌LOGO占位框及底部水印",
+  "suspected": []
+ },
+ "65117f3501ae850a6f46917749073b7a.png": {
+  "texts": [
+   "LOGO IN ORDER TO EARN MONEY",
+   "松年",
+   "庚子年",
+   "N E W S E R A",
+   "2020",
+   "NEW YEAR'S DAY",
+   "鼠年吉祥",
+   "THE WORLD WILL BE BETTER 2020",
+   "春回新禧",
+   "逆賀新年",
+   "恭贺新春",
+   "Congratulations t o the New Year",
+   "庚子年【鼠年】2020年",
+   "THE VEGETATION IS DIVIDED INTO FOUR TIMES, AND THERE ARE TWELVE ROUNDS IN ONE YEAR.",
+   "草木枯荣分四时，一岁月有十二圆。",
+   "In the history of China about 5000 years, there has a large number of auspicious things, like the eight treasures ... (底部多处英文字体过小，无法逐字辨认)"
+  ],
+  "visual_elements": "深蓝与明黄拼色背景的2020鼠年新春海报，主体是一只戴彩色狮头面具、穿红色唐装的卡通老鼠脚踩祥云腾跃；配有卷草纹云气、右侧红色印章式吉祥语、左上角LOGO与英文标语，下方为毛笔大字标题与英文诗句、年份信息。",
+  "suspected": []
+ },
+ "6a73d4dc769a068d37b8cfda82d572e6.png": {
+  "texts": [
+   "#TIME;09.30 20;00AM-10.07 23.59AM",
+   "国庆欢季",
+   "点击链接了解详情",
+   "#TIME;09.30 20:00AM",
+   "NO HESITATION",
+   "OH SNAP",
+   "国庆快乐",
+   "限时六折"
+  ],
+  "visual_elements": "一位年轻女性身穿浅色牛仔外套、露脐图案上衣与牛仔短裤，头戴黑色棒球帽，单手扶帽，背景为蓝橙撞色促销海报，整体风格为国庆促销。",
+  "suspected": []
+ },
+ "7f14bdc2c67017418119688e02243dc9.png": {
+  "texts": [
+   "éifini 伊芙丽",
+   "FAITH",
+   "DON'T BE A GODDESS, BE YOURSELF!",
+   "不做女神，",
+   "ELEGANTY",
+   "做自己！",
+   "“要经典 零盲从”",
+   "伊芙丽集团 5 周年 の 经典款",
+   "“CLASSIC ZERO BLIND OBEDIENCE”",
+   "NATURE",
+   "咨询电话 400 099 6682",
+   "http://www.eifini.com/",
+   "地址：杭州市三鑫工业园13-3"
+  ],
+  "visual_elements": "女模特身穿卡其色风衣、手拿棕色皮包，背景为浅卡其色，含“éifini伊芙丽”品牌标识和“享设计”水印的广告海报。",
+  "suspected": []
+ },
+ "944f8afbc29315fd117241cd2d76b47b.png": {
+  "texts": [
+   "NEW FASHION",
+   "2019 A/W NEW ARRIVAL",
+   "WINTER SEES A COLD",
+   "SOISOSFOEOS LANEET",
+   "COVER THE EARTH",
+   "AUTUMN",
+   "2019",
+   "AUTUMN",
+   "NEW",
+   "ARRIVAL",
+   "新时尚",
+   "时尚潮流 每年都是一场轮回的盛宴",
+   "1件9折",
+   "ARRIVAL"
+  ],
+  "visual_elements": "金发白人女性模特身穿黑色高领针织衫，外搭卡其色外套，佩戴白色耳环，背景为米色，画面有英文排版与促销文字。",
+  "suspected": []
+ },
+ "a4ce7587e01a0217b057e62817139891.png": {
+  "texts": [
+   "宿遇",
+   "宿命相遇",
+   "倏然心动",
+   "B e c k o n i n g",
+   "追诉内心的声音，",
+   "遇见自己，无法逃避的相遇，",
+   "不能回收对你的心动❤",
+   "https://mall.jd.com",
+   "扫码关注京东旗舰店",
+   "扫一扫直接购买"
+  ],
+  "visual_elements": "画面中一位女性模特身穿米色条纹连衣裙坐在室内，手托脸颊，背景有干花与纱帘，右上角有品牌标识“宿遇”，右下角有二维码、京东链接和扫码文字。",
+  "suspected": []
+ },
+ "d50fe18eb62986ce02db5f53a61b9e1f.png": {
+  "texts": [
+   "呀团 | 羊毛衫专场",
+   "yatuan.com",
+   "New",
+   "Autun",
+   "轻柔",
+   "暖糯",
+   "08.25",
+   "19:00",
+   "专场直播",
+   "新品来袭 / 暖过拥抱 柔过亲吻",
+   "THE NEW ARRIVAL",
+   "REVEALS THE ROMANTIC FEELINGS OF ELEGANT FEMALE"
+  ],
+  "visual_elements": "画面主体为一位戴黑色渔夫帽、穿米白黑边针织开衫、棕色内搭、棕色皮质短裤和长靴的女性模特，肩挎黑色包，背景为棕/米色弧形色块，左上角有“呀团”品牌标识，整体为服装广告海报。",
+  "suspected": []
+ },
+ "f7d323e50e9f7edcb0a559fe2a657781.png": {
+  "texts": [
+   "FASHION",
+   "CLASSIC",
+   "VERSATILE",
+   "经典百搭",
+   "翻领",
+   "2022",
+   "新品上市",
+   "新风尚",
+   "秋季新上市",
+   "AUTUMN NEW"
+  ],
+  "visual_elements": "画面中一位戴白色礼帽、穿浅蓝色双排扣翻领外套和白色长裤的女性模特，手持灰色手包，背景为蓝白几何色块，配有FASHION等宣传文字。",
+  "suspected": []
+ },
+ "ffce0adf7b09e3ddfef88857e4c4c04d.png": {
+  "texts": [
+   "P E A",
+   "C O C K  L A K E",
+   "ENJOY YOUR DREAM LIFE WITH THE LAKESHORE OF VILLA",
+   "孔雀城·大湖",
+   "独立&别致",
+   "较往年 今年颇有深意",
+   "在传承半个世纪的法式优雅之下",
+   "更多饱和大胆的色彩运用其中",
+   "寓以独立女性先锋思想之义",
+   "不单强调廓形",
+   "更多地向个人风格和",
+   "有趣的细节方面发展",
+   "LIN STUDIO"
+  ],
+  "visual_elements": "深灰渐变背景前，一位盘发女性模特身着黑白印花长袖鱼尾长裙、双臂上举摆出舞蹈姿态，画面四周配有细线边框；右上角为孔雀城·大湖地产广告文案与标识，右下角为LIN STUDIO服饰品牌标识。",
+  "suspected": []
+ }
+}

@@ -13,3 +13,8 @@ models/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# 海报评测图：采集图含版权/肖像考虑，仅本地保存不进 git（标注文件、合成脚本照常入库，图可由 eval/make_synthetic_posters.py 重造）
+data/eval_images/*.png
+data/eval_images/*.jpg
+data/eval_images/*.jpeg

@@ -30,7 +30,11 @@ docs/report_schema.md   报告 schema 定稿文档（卡1 产出）
 
 - [x] 卡1 立项定界：报告 schema 定稿 v1.0（docs/report_schema.md）
 - [x] 卡2 环境与模型跑通：deepseek-flash 文本+视觉双链路 ✅（海报 6 行文字全部转写成功）
-- [ ] 卡3 法律语料 + 双形态标注评测集
+- [x] 卡3 法律语料 + 双形态标注评测集 ✅
+  - 法律语料：广告法 74 条 + 民法典人格权/侵权责任两编 145 条（`eval/build_laws.py`）
+  - 违禁词库 206 词；文案评测集 40 条（16 违规 / 8 疑似 / 16 合规）
+  - 海报评测集 22 张（17 采集 + 5 合成违规），标注 `data/eval_images/annotations.jsonl`
+  - 验收：`python eval/eval_dataset.py` → 双形态可加载、分布达标 ✅
 - [ ] 卡4 双通道审核引擎
 - [ ] 卡5 评估出数据（拦截率 ≥95%、误报率 ≤10%）
 - [ ] 卡6 Streamlit Demo
