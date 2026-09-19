@@ -18,3 +18,6 @@ Thumbs.db
 data/eval_images/*.png
 data/eval_images/*.jpg
 data/eval_images/*.jpeg
+
+# 用户在 Demo 上传的临时图片不入库
+data/uploads/
