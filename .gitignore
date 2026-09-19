@@ -1,0 +1,15 @@
+# 密钥与配置 —— 永不提交
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 本地模型缓存（BGE 等，体积大可重下）
+models/
+
+# 系统文件
+.DS_Store
+Thumbs.db

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "海报合规审核报告",
+  "description": "广告宣传 Agent 第一期：双形态合规审核报告 schema v1.0，定稿见 docs/report_schema.md",
+  "type": "object",
+  "required": ["input_type", "risk_level", "findings", "summary", "meta"],
+  "additionalProperties": false,
+  "properties": {
+    "input_type": { "enum": ["text", "image"] },
+    "transcript": {
+      "type": ["object", "null"],
+      "description": "图片版必填：画面文字与画面元素转写；文本版为 null",
+      "required": ["texts", "visual_elements"],
+      "properties": {
+        "texts": { "type": "array", "items": { "type": "string" } },
+        "visual_elements": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "risk_level": { "enum": ["violation", "suspicious", "compliant"] },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "fragment", "law", "reason", "suggestion", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "enum": ["极限词", "虚假误导", "医疗功效", "保健食品", "肖像权", "名誉权", "隐私", "低俗"] },
+          "fragment": { "type": "string" },
+          "law": {
+            "type": "object",
+            "required": ["name", "article", "quote"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "description": "法名，如：广告法" },
+              "article": { "type": "string", "description": "条号，如：第九条" },
+              "quote": { "type": "string", "description": "条文原文" }
+            }
+          },
+          "reason": { "type": "string" },
+          "suggestion": { "type": "string" },
+          "source": { "enum": ["keyword", "rag", "visual"] }
+        }
+      }
+    },
+    "summary": { "type": "string" },
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "model", "latency_ms", "timestamp"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "const": "1.0" },
+        "model": { "type": "string" },
+        "latency_ms": { "type": "integer", "minimum": 0 },
+        "timestamp": { "type": "string", "description": "ISO 8601" },
+        "cost_cny": { "type": ["number", "null"] }
+      }
+    }
+  }
+}
