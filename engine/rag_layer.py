@@ -115,24 +115,29 @@ JUDGE_SYSTEM = (
 
 
 def audit_semantic(text: str, index: LawIndex, llm, k: int | None = None,
-                   extra_refs: list[tuple[str, str]] | None = None) -> list[dict]:
+                   extra_refs: list[tuple[str, str]] | None = None,
+                   include_laws: bool = True) -> list[dict]:
     """语义通道：混合检索（向量 top-k ∪ 关键词层指向的法条）→ LLM 一次比对 → findings。
 
     extra_refs：keyword 层给出的（法名, 条号）——口语↔法条术语存在语义鸿沟，
     词库的「预期法条」映射是最可靠的lexical桥，直接并入候选集并置前。
+    include_laws=False：消融模式，不给法条凭模型自身知识判断（quote 恒为空）。
     """
-    candidates = index.search(text, k or index.k)
-    if extra_refs:
-        seen = {(r["law"], r["article"]) for r in candidates}
-        for law, article in extra_refs:
-            row = index.get_by_ref(law, article)
-            if row and (row["law"], row["article"]) not in seen:
-                candidates.insert(0, {**row, "score": 1.0, "via": "keyword"})
-                seen.add((row["law"], row["article"]))
+    if include_laws:
+        candidates = index.search(text, k or index.k)
+        if extra_refs:
+            seen = {(r["law"], r["article"]) for r in candidates}
+            for law, article in extra_refs:
+                row = index.get_by_ref(law, article)
+                if row and (row["law"], row["article"]) not in seen:
+                    candidates.insert(0, {**row, "score": 1.0, "via": "keyword"})
+                    seen.add((row["law"], row["article"]))
+    else:
+        candidates = []  # 消融模式：无候选、无引用回填，判定完全依赖模型自身知识
     law_block = "\n".join(
         f"- {r['law']}·{r['article']}（适用场景：{r['scene_note'] or '见条文'}）\n  原文：{r['text']}"
         for r in candidates
-    )
+    ) if include_laws else "（无 RAG 消融模式：本次不提供法条，仅凭你的法律知识判断，article 给出你认为适用的法条名即可）"
     prompt = f"待审文案：\n{text}\n\n给定法条：\n{law_block}\n\n请输出 JSON 判定。"
     raw = llm.chat(prompt, system=JUDGE_SYSTEM, json_mode=True, temperature=0.1)
     m = re.search(r"\{.*\}", raw, re.S)

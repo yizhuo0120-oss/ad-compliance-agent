@@ -67,13 +67,20 @@ def _fill_quote(findings: list[dict]) -> None:
                     break
 
 
-def audit_text(llm, text: str, index: rag_layer.LawIndex) -> dict:
-    """文案通道全流程：关键词层 + 语义层 → 合并 → 报告。"""
+def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full") -> dict:
+    """文案通道全流程：关键词层 + 语义层 → 合并 → 报告。
+
+    use_rag="full"：混合检索法条进提示词 + 回填条文引用（正式模式）
+    use_rag="off" ：同模型但不含法条、凭自身知识判断（消融模式，quote 恒为空）
+    """
     t0 = time.time()
     kw = keyword_layer.audit(text)
     # 关键词命中的「预期法条」并入语义层候选（混合检索，弥合语义鸿沟）
     extra_refs = [tuple(r.split("·", 1)) for f in kw for r in f.get("_law_refs", [])]
-    rag = rag_layer.audit_semantic(text, index, llm, extra_refs=extra_refs)
+    if use_rag == "full":
+        rag = rag_layer.audit_semantic(text, index, llm, extra_refs=extra_refs)
+    else:
+        rag = rag_layer.audit_semantic(text, index, llm, include_laws=False)
     findings = _merge(rag, kw)
     _fill_quote(findings)
     report = {

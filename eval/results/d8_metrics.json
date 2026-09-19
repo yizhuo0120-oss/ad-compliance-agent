@@ -1,0 +1,53 @@
+{
+ "text_rag_full": {
+  "tag": "text-RAG",
+  "n": 40,
+  "catch_rate": 1.0,
+  "fp_rate": 0.125,
+  "suspicious_hit": "6/8",
+  "vector_hit_rate": 0.4167,
+  "citation_acc": 0.7381,
+  "citations": 42,
+  "cross": {
+   "compliant->compliant": 14,
+   "compliant->suspicious": 2,
+   "suspicious->compliant": 2,
+   "suspicious->suspicious": 5,
+   "suspicious->violation": 1,
+   "violation->suspicious": 1,
+   "violation->violation": 15
+  },
+  "elapsed_s": 204
+ },
+ "text_rag_off": {
+  "tag": "text-无RAG",
+  "n": 40,
+  "catch_rate": 1.0,
+  "fp_rate": 0.3125,
+  "suspicious_hit": "8/8",
+  "vector_hit_rate": 0.4167,
+  "citation_acc": 0.5085,
+  "citations": 59,
+  "cross": {
+   "compliant->compliant": 11,
+   "compliant->suspicious": 5,
+   "suspicious->suspicious": 6,
+   "suspicious->violation": 2,
+   "violation->suspicious": 3,
+   "violation->violation": 13
+  },
+  "elapsed_s": 252
+ },
+ "image": {
+  "tag": "image",
+  "n": 22,
+  "catch_rate": 1.0,
+  "fp_rate": 0.9286,
+  "citation_acc": 0.4737,
+  "citations": 57,
+  "transcript_completeness": 1.0,
+  "transcript_total": 23,
+  "transcript_stability_collected": 0.7606,
+  "elapsed_s": 663
+ }
+}
