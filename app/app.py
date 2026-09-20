@@ -21,6 +21,146 @@ from engine.rag_layer import LawIndex  # noqa: E402
 
 st.set_page_config(page_title="广告合规 Agent", page_icon="🛡️", layout="wide")
 
+# ── 主题：全屏摄影背景 + 深色玻璃面板 + 白色排版（参考 网页设计/风格参考） ──
+import base64
+
+_BG = ROOT / "app" / "assets" / "bg.jpg"
+if _BG.exists():
+    _b64 = base64.b64encode(_BG.read_bytes()).decode()
+    _bg_css = f'url("data:image/jpeg;base64,{_b64}")'
+else:
+    _bg_css = "linear-gradient(160deg, #0b1220 0%, #16233b 60%, #0b1220 100%)"
+
+st.markdown(
+    f"""
+    <style>
+    /* 全屏背景 + 压暗渐变，保证白色文字可读 */
+    .stApp {{
+        background: linear-gradient(rgba(7,11,20,.42), rgba(7,11,20,.66)), {_bg_css};
+        background-size: cover;
+        background-position: center 30%;
+        background-attachment: fixed;
+        color: #E9EDF4;
+    }}
+    header[data-testid="stHeader"] {{ background: transparent; height: 2.6rem; }}
+    /* 隐藏右上角 Deploy 原生菜单，保持极简 */
+    div[data-testid="stToolbar"] {{ visibility: hidden; }}
+
+    /* Hero 头部：小字距 kicker + 大标题（参考风格） */
+    .hero-kicker {{
+        letter-spacing: .42em; font-size: .82rem; font-weight: 500;
+        color: rgba(255,255,255,.72); text-transform: uppercase; margin: 1.2rem 0 .6rem;
+    }}
+    .hero-title {{
+        font-size: 3.4rem; font-weight: 900; letter-spacing: .12em;
+        color: #FFFFFF; margin: 0 0 .5rem; line-height: 1.15;
+        text-shadow: 0 2px 24px rgba(0,0,0,.45);
+    }}
+    .hero-sub {{
+        color: rgba(233,237,244,.82); font-size: .95rem; margin-bottom: .4rem;
+    }}
+    .hero-rule {{
+        height: 1px; border: 0; margin: 1.1rem 0 1.4rem;
+        background: linear-gradient(90deg, rgba(233,184,114,.9), rgba(255,255,255,.08));
+    }}
+
+    /* 侧栏：深色玻璃 */
+    section[data-testid="stSidebar"] {{
+        background: rgba(7,11,20,.58);
+        backdrop-filter: blur(14px);
+        border-right: 1px solid rgba(255,255,255,.12);
+    }}
+    section[data-testid="stSidebar"] * {{ color: #E9EDF4 !important; }}
+    section[data-testid="stSidebar"] hr {{ border-color: rgba(255,255,255,.15); }}
+
+    /* 主区文字基色 */
+    .block-container {{ padding-top: 1.6rem; max-width: 1180px; }}
+    h1, h2, h3 {{ color: #FFFFFF !important; }}
+
+    /* 玻璃输入件 */
+    .stTextArea textarea, .stTextInput input {{
+        background: rgba(8,13,24,.55) !important;
+        color: #F2F5FA !important;
+        border: 1px solid rgba(255,255,255,.24) !important;
+        border-radius: 8px !important;
+    }}
+    .stTextArea textarea::placeholder, .stTextInput input::placeholder {{ color: rgba(233,237,244,.45) !important; }}
+    div[data-testid="stFileUploader"] section {{
+        background: rgba(8,13,24,.45); border: 1px dashed rgba(255,255,255,.28); border-radius: 10px;
+    }}
+
+    /* 按钮：日出金 */
+    .stButton > button {{
+        background: linear-gradient(180deg, #EFC98B, #DFA95C);
+        color: #241703; font-weight: 700; border: none; border-radius: 8px;
+        padding: .45rem 1.3rem;
+        box-shadow: 0 4px 18px rgba(0,0,0,.35);
+    }}
+    .stButton > button:hover {{ filter: brightness(1.06); }}
+
+    /* Tabs：白色文字 + 金色选中下划线 */
+    div[data-testid="stTabs"] button {{ color: rgba(255,255,255,.62) !important; font-weight: 600; }}
+    div[data-testid="stTabs"] button[aria-selected="true"] {{ color: #FFFFFF !important; }}
+    div[data-testid="stTabs"] button[aria-selected="true"] p {{
+        border-bottom: 2px solid #E9B872;
+    }}
+
+    /* 玻璃容器 / 折叠面板 */
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        background: rgba(7,11,20,.5); backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,.16) !important; border-radius: 12px;
+    }}
+    div[data-testid="stExpander"] {{
+        background: rgba(7,11,20,.45); border: 1px solid rgba(255,255,255,.14);
+        border-radius: 10px;
+    }}
+    details summary {{ color: #E9EDF4 !important; }}
+
+    /* 提示条：深色玻璃 + 彩色描边 */
+    div[data-testid="stAlert"] {{
+        background: rgba(7,11,20,.55); backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,.14); border-radius: 10px;
+    }}
+
+    /* 图片：轻描边 */
+    img {{ border-radius: 10px; }}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+    <p class="hero-kicker">Ad Compliance · 法律合规审核</p>
+    <p class="hero-title">广告合规审核 Agent</p>
+    <p class="hero-sub">文案 / 海报 / 视频三形态合规审核（带法条引用）＋ 商品信息一键生成合规物料　｜　语料：《广告法》+《民法典》</p>
+    <hr class="hero-rule">
+    """,
+    unsafe_allow_html=True,
+)
+st.caption("提示：右上角「审核模式」与判定口径见左侧栏；所有审核结果均由引擎实时生成。")
+
+
+@st.cache_resource(show_spinner="加载引擎（首次构建法条向量库约半分钟）…")
+def load_engine():
+    llm = LLMClient()
+    idx = LawIndex(k=5)
+    idx.build()
+    return llm, idx
+
+
+llm, index = load_engine()
+
+mode = st.sidebar.radio("审核模式", ["双层（关键词 + 法律 RAG）", "仅关键词层"], index=0)
+use_rag = "none" if mode.startswith("仅关键词") else "full"
+st.sidebar.markdown(f"**供应商**：`{llm.provider}`\n\n文本：`{llm.text_model}`\n\n视觉：`{llm.vision_model}`\n\n法条库：{len(index.rows)} 条")
+st.sidebar.markdown("---")
+st.sidebar.markdown(
+    "**判定口径**\n"
+    "- 🔴 违规：明确命中法条禁止情形\n"
+    "- 🟠 疑似：边缘表达，转人工复核\n"
+    "- 🟢 合规：双层均无发现")
+
 RISK = {"violation": ("违规", "red"), "suspicious": ("疑似违规", "orange"), "compliant": ("合规", "green")}
 SOURCE_LABEL = {"keyword": "关键词层", "rag": "法律RAG", "visual": "视觉判定"}
 
@@ -31,14 +171,6 @@ SAMPLES = {
     "合规：正常促销": "新店开业，全场9折，欢迎进店选购",
     "陷阱：第一人称（应判合规）": "第一人称视角实拍，所见即所得",
 }
-
-
-@st.cache_resource(show_spinner="加载引擎（首次构建法条向量库约半分钟）…")
-def load_engine():
-    llm = LLMClient()
-    idx = LawIndex(k=5)
-    idx.build()
-    return llm, idx
 
 
 def render_findings(report):
@@ -78,21 +210,6 @@ def render_report(report):
                 st.markdown(f"**口播 {seg['start']}~{seg['end']}s**：{seg['text']}")
     render_findings(report)
 
-
-llm, index = load_engine()
-
-st.title("🛡️ 广告合规审核 Agent")
-st.caption("文案 / 海报 / 视频三形态合规审核（带法条引用）＋ 商品信息一键生成合规物料　｜　语料：《广告法》+《民法典》")
-
-mode = st.sidebar.radio("审核模式", ["双层（关键词 + 法律 RAG）", "仅关键词层"], index=0)
-use_rag = "none" if mode.startswith("仅关键词") else "full"
-st.sidebar.success(f"供应商：**{llm.provider}**\n\n文本：`{llm.text_model}`\n\n视觉：`{llm.vision_model}`\n\n法条库：{len(index.rows)} 条")
-st.sidebar.markdown("---")
-st.sidebar.markdown(
-    "**判定口径**\n"
-    "- 🔴 违规：明确命中法条禁止情形\n"
-    "- 🟠 疑似：边缘表达，转人工复核\n"
-    "- 🟢 合规：双层均无发现")
 
 tab_gen, tab1, tab2, tab3 = st.tabs(["✨ 一键生成", "📝 文案审核", "🖼️ 海报图审核", "🎬 视频审核"])
 
