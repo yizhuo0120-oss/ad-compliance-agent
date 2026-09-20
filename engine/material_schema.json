@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "生成物料包（Material Pack）",
+  "description": "二期卡7/卡8/卡10 的统一数据载体，见《第二期计划手册.md》第二节",
+  "type": "object",
+  "required": ["product", "platforms"],
+  "additionalProperties": false,
+  "properties": {
+    "product": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "info": { "type": "string", "description": "商品原始信息/卖点描述" },
+        "selling_points": { "type": "array", "items": { "type": "string" } },
+        "audience": { "type": "string", "description": "目标人群一句话" },
+        "strategy": { "type": "string", "description": "一句投放策略" }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["platform", "copy"],
+        "additionalProperties": false,
+        "properties": {
+          "platform": { "enum": ["小红书", "抖音口播", "淘宝主图", "朋友圈"] },
+          "copy": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "image_prompt": { "type": ["string", "null"], "description": "宣传图生图提示词（卡8 填入）" },
+    "image_path": { "type": ["string", "null"], "description": "生成图路径（卡8 填入）" },
+    "ai_disclosure": { "type": ["string", "null"], "description": "AI 生成标识声明（卡8 填入）" },
+    "audit": {
+      "type": ["object", "null"],
+      "description": "一期审核引擎的报告（卡10 闭环填入）",
+      "properties": {
+        "risk_level": { "type": "string" },
+        "revisions": { "type": "integer" },
+        "final_compliant": { "type": "boolean" }
+      }
+    }
+  }
+}
