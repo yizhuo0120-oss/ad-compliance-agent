@@ -36,6 +36,20 @@ _DEFAULTS = {
 }
 
 
+def image_client() -> "LLMClient":
+    """返回一个具备生图能力的客户端：优先当前供应商，否则按配置顺序找有生图模型的供应商。"""
+    current = os.getenv("LLM_PROVIDER", "deepseek").strip().lower()
+    order = [current] + [p for p in _DEFAULTS if p != current]
+    for p in order:
+        try:
+            c = LLMClient(provider=p)
+        except ValueError:
+            continue
+        if c.image_model:
+            return c
+    raise ValueError("没有任何可用供应商配置了生图模型（*_IMAGE_MODEL）")
+
+
 class LLMClient:
     """OpenAI 兼容接口的统一客户端。"""
 
