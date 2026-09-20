@@ -13,7 +13,7 @@ import urllib.request
 from datetime import datetime
 from pathlib import Path
 
-from engine.llm_client import LLMClient, image_client
+from engine.llm_client import LLMClient, extract_json, image_client
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "data" / "generated"
@@ -29,8 +29,7 @@ ART_SYSTEM = (
 
 
 def _extract_json(raw: str) -> dict:
-    m = re.search(r"\{.*\}", raw, re.S)
-    return json.loads(m.group(0)) if m else {}
+    return extract_json(raw)
 
 
 def make_image_prompt(llm, product: dict, copy_text: str = "") -> str:

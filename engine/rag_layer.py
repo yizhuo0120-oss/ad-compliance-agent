@@ -10,6 +10,8 @@ import os
 import re
 from pathlib import Path
 
+from engine.llm_client import extract_json
+
 ROOT = Path(__file__).resolve().parent.parent
 LAWS_DIR = ROOT / "data" / "laws"
 VEC_PATH = LAWS_DIR / "index_vectors.npy"
@@ -146,8 +148,7 @@ def audit_semantic(text: str, index: LawIndex, llm, k: int | None = None,
     ) if include_laws else "（无 RAG 消融模式：本次不提供法条，仅凭你的法律知识判断，article 给出你认为适用的法条名即可）"
     prompt = f"待审文案：\n{text}\n\n给定法条：\n{law_block}\n\n请输出 JSON 判定。"
     raw = llm.chat(prompt, system=JUDGE_SYSTEM, json_mode=True, temperature=0.1)
-    m = re.search(r"\{.*\}", raw, re.S)
-    data = json.loads(m.group(0)) if m else {"findings": []}
+    data = extract_json(raw)
 
     corpus = {(r["law"], r["article"]): r["text"] for r in candidates}
     findings = []

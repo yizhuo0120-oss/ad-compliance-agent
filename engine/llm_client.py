@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import base64
+import json
 import mimetypes
 import os
 from pathlib import Path
@@ -26,6 +27,28 @@ ROOT = Path(__file__).resolve().parent.parent
 load_dotenv(ROOT / ".env")
 
 KNOWN_PROVIDERS = ("deepseek", "zhipu", "dashscope")
+
+
+def extract_json(raw: str) -> dict:
+    """宽松解析 LLM 输出中的第一个 JSON 对象。
+
+    容忍：```json 围栏、前后缀文字、多个对象（取第一个可解析的）。
+    全项目所有 json_mode 输出统一走这里，避免各处重复踩「Extra data」坑。
+    """
+    raw = (raw or "").strip()
+    try:
+        return json.loads(raw)
+    except Exception:
+        pass
+    dec = json.JSONDecoder()
+    idx = raw.find("{")
+    while idx != -1:
+        try:
+            obj, _end = dec.raw_decode(raw[idx:])
+            return obj
+        except Exception:
+            idx = raw.find("{", idx + 1)
+    return {}
 
 # 三家均为 OpenAI 兼容接口；base_url 与模型名可被 .env 同名变量覆盖
 # image 模型：None = 该供应商无生图能力（deepseek-flash 只能看图不能生图）

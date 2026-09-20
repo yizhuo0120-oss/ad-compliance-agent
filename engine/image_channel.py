@@ -5,6 +5,7 @@ import json
 import re
 from pathlib import Path
 
+from engine.llm_client import extract_json
 from engine.rag_layer import norm_type
 
 TRANSCRIBE_PROMPT = (
@@ -34,8 +35,7 @@ VISUAL_SYSTEM = (
 def transcribe(llm, image_path: str | Path) -> dict:
     """VL 转写：返回 {texts: [...], visual_elements: str}。"""
     raw = llm.vision(TRANSCRIBE_PROMPT, image_path)
-    m = re.search(r"\{.*\}", raw, re.S)
-    data = json.loads(m.group(0)) if m else {}
+    data = extract_json(raw)
     return {"texts": [str(t) for t in data.get("texts", [])],
             "visual_elements": str(data.get("visual_elements", ""))}
 
@@ -53,8 +53,7 @@ def audit_visual(llm, texts: list[str], visual_elements: str, index, k: int | No
         f"画面文字：{' | '.join(texts)}\n\n给定法条：\n{law_block}\n\n请输出 JSON 判定。"
     )
     raw = llm.chat(prompt, system=VISUAL_SYSTEM, json_mode=True, temperature=0.1)
-    m = re.search(r"\{.*\}", raw, re.S)
-    data = json.loads(m.group(0)) if m else {}
+    data = extract_json(raw)
     corpus = {(r["law"], r["article"]): r["text"] for r in articles}
     findings = []
     for f in data.get("findings", []):

@@ -36,10 +36,9 @@ def audit_pack(llm, index, pack: dict) -> dict:
 
 def _rewrite_one(llm, platform: str, copy: str, findings_json: str) -> dict:
     prompt = f"【平台】{platform}\n【原文案】\n{copy}\n\n【审核报告】\n{findings_json}\n\n请输出改写后的 JSON。"
-    import re
+    from engine.llm_client import extract_json
     raw = llm.chat(prompt, system=REWRITE_SYSTEM, json_mode=True, temperature=0.4)
-    m = re.search(r"\{.*\}", raw, re.S)
-    data = json.loads(m.group(0)) if m else {}
+    data = extract_json(raw)
     return {"platform": platform, "copy": str(data.get("copy", copy)).strip(),
             "tags": [str(t) for t in data.get("tags", [])]}
 

@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from engine.llm_client import LLMClient  # noqa: E402
+from engine.llm_client import LLMClient, extract_json  # noqa: E402
 
 SAMPLES_DIR = ROOT / "data" / "style_samples"
 SCHEMA_PATH = ROOT / "engine" / "material_schema.json"
@@ -46,8 +46,7 @@ def load_samples(platform: str) -> list[str]:
 
 
 def _extract_json(raw: str) -> dict:
-    m = re.search(r"\{.*\}", raw, re.S)
-    return json.loads(m.group(0)) if m else {}
+    return extract_json(raw)
 
 
 def plan(llm, product: dict) -> dict:
