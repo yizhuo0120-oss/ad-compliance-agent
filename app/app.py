@@ -124,6 +124,20 @@ st.markdown(
 
     /* 图片：轻描边 */
     img {{ border-radius: 10px; }}
+
+    /* 组件标签与代码药丸（系统浅色主题兜底） */
+    [data-testid="stWidgetLabel"] p {{ color: #E9EDF4 !important; }}
+    .stApp code {{
+        background: rgba(255,255,255,.14) !important;
+        color: #FFD9A0 !important; border-radius: 6px; padding: 2px 8px;
+    }}
+    div[data-testid="stTabs"] button p {{
+        color: rgba(255,255,255,.62) !important; font-weight: 600;
+    }}
+    div[data-testid="stTabs"] button[aria-selected="true"] p {{
+        color: #FFFFFF !important;
+    }}
+    .stApp h1, .stApp h2, .stApp h3, .stApp strong {{ color: #FFFFFF !important; }}
     </style>
     """,
     unsafe_allow_html=True,

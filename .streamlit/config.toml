@@ -1,0 +1,12 @@
+# 主题钉死为深色：不随系统深浅色偏好变化（背景图 + 玻璃 CSS 依赖深色基底）
+[theme]
+base = "dark"
+primaryColor = "#E9B872"
+backgroundColor = "#0B1220"
+secondaryBackgroundColor = "#121A2A"
+textColor = "#E9EDF4"
+font = "sans serif"
+
+[server]
+headless = true
+port = 8501
