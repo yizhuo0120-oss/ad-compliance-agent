@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+from engine.art_director import generate_promo  # noqa: E402
 from engine.copywriter import generate_materials, validate_materials  # noqa: E402
 from engine.pipeline import audit_text  # noqa: E402
 
@@ -80,6 +81,16 @@ def closed_loop(llm, index, product: dict, platforms: list[str] | None = None,
 
     pack["audit"] = {"risk_level": report["risk_level"], "revisions": revisions,
                      "final_compliant": final_compliant}
+
+    # 宣传图：收敛后用最终合规文案出图（附 AI 显式标识）；生图失败不拖垮闭环
+    if final_compliant:
+        try:
+            first_copy = pack["platforms"][0]["copy"]
+            pack.update(generate_promo(llm, product, copy_text=first_copy))
+        except Exception as e:
+            pack["image_prompt"] = pack["image_path"] = pack["ai_disclosure"] = None
+            print(f"  宣传图生成失败（不影响文案交付）：{str(e)[:120]}", flush=True)
+
     validate_materials(pack)
     return {"pack": pack, "trajectory": trajectory,
             "rounds": round_no, "final_compliant": final_compliant}
