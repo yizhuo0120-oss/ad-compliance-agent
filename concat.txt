@@ -1,0 +1,7 @@
+file 'D:/traecode练习/AIGC方向资料&简历个人信息/个人项目/3-广告宣传agent/ad-compliance-agent/slide0.png'
+duration 4
+file 'D:/traecode练习/AIGC方向资料&简历个人信息/个人项目/3-广告宣传agent/ad-compliance-agent/slide1.png'
+duration 4
+file 'D:/traecode练习/AIGC方向资料&简历个人信息/个人项目/3-广告宣传agent/ad-compliance-agent/slide2.png'
+duration 4
+file 'D:/traecode练习/AIGC方向资料&简历个人信息/个人项目/3-广告宣传agent/ad-compliance-agent/slide2.png'

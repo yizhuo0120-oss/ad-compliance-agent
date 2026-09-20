@@ -6,19 +6,54 @@
   "required": ["input_type", "risk_level", "findings", "summary", "meta"],
   "additionalProperties": false,
   "properties": {
-    "input_type": { "enum": ["text", "image"] },
+    "input_type": { "enum": ["text", "image", "video"] },
     "transcript": {
       "type": ["object", "null"],
-      "description": "图片版必填：画面文字与画面元素转写；文本版为 null",
-      "required": ["texts", "visual_elements"],
-      "properties": {
-        "texts": { "type": "array", "items": { "type": "string" } },
-        "visual_elements": {
-          "description": "画面元素描述：一句话字符串或按元素拆分的数组",
-          "type": ["string", "array"],
-          "items": {"type": "string"}
+      "description": "图片版：texts+visual_elements；视频版：frames+audio；文本版 null",
+      "oneOf": [
+        {
+          "required": ["texts", "visual_elements"],
+          "properties": {
+            "texts": { "type": "array", "items": { "type": "string" } },
+            "visual_elements": {
+              "description": "画面元素描述：一句话字符串或按元素拆分的数组",
+              "type": ["string", "array"],
+              "items": { "type": "string" }
+            }
+          }
+        },
+        {
+          "required": ["frames", "audio"],
+          "properties": {
+            "frames": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["t", "texts"],
+                "additionalProperties": false,
+                "properties": {
+                  "t": { "type": "number", "description": "帧时间戳（秒）" },
+                  "texts": { "type": "array", "items": { "type": "string" } },
+                  "visual_elements": { "type": ["string", "array"], "items": { "type": "string" } }
+                }
+              }
+            },
+            "audio": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["start", "end", "text"],
+                "additionalProperties": false,
+                "properties": {
+                  "start": { "type": "number" },
+                  "end": { "type": "number" },
+                  "text": { "type": "string" }
+                }
+              }
+            }
+          }
         }
-      }
+      ]
     },
     "risk_level": { "enum": ["violation", "suspicious", "compliant"] },
     "findings": {
@@ -42,7 +77,8 @@
           },
           "reason": { "type": "string" },
           "suggestion": { "type": "string" },
-          "source": { "enum": ["keyword", "rag", "visual"] }
+          "source": { "enum": ["keyword", "rag", "visual"] },
+          "location": { "type": ["string", "null"], "description": "视频版：违规定位（如「画面2.5s」「口播10s」）；文案/图片版为 null" }
         }
       }
     },
@@ -52,7 +88,7 @@
       "required": ["schema_version", "model", "latency_ms", "timestamp"],
       "additionalProperties": false,
       "properties": {
-        "schema_version": { "const": "1.0" },
+        "schema_version": { "enum": ["1.0", "1.1"], "description": "1.1 起支持视频形态" },
         "model": { "type": "string" },
         "latency_ms": { "type": "integer", "minimum": 0 },
         "timestamp": { "type": "string", "description": "ISO 8601" },
