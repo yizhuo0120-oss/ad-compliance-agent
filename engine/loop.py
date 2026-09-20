@@ -28,9 +28,9 @@ REWRITE_SYSTEM = (
 
 
 def audit_pack(llm, index, pack: dict) -> dict:
-    """整个物料包（4 平台文案合并）过一期审核引擎。"""
+    """整个物料包（4 平台文案合并）过一期审核引擎。keep_internal 附带违规级判据。"""
     joined = "\n".join(f"[{p['platform']}] {p['copy']}" for p in pack["platforms"])
-    return audit_text(llm, joined, index)
+    return audit_text(llm, joined, index, keep_internal=True)
 
 
 def _rewrite_one(llm, platform: str, copy: str, findings_json: str) -> dict:
@@ -54,12 +54,14 @@ def closed_loop(llm, index, product: dict, platforms: list[str] | None = None,
 
     for round_no in range(1, max_rounds + 1):
         report = audit_pack(llm, index, pack)
+        has_violation = bool(report.get("_has_violation"))
         trajectory.append({
             "round": round_no, "risk": report["risk_level"],
             "n_findings": len(report["findings"]),
             "fragments": [f["fragment"][:30] for f in report["findings"]],
         })
-        if report["risk_level"] == "compliant":
+        if not has_violation:
+            # 收敛口径：无「违规级」发现即合规交付；疑似级按设计转人工，不作循环条件
             final_compliant = True
             break
         if round_no == max_rounds:

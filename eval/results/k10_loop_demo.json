@@ -7,13 +7,12 @@
   "trajectory": [
    {
     "round": 1,
-    "risk": "suspicious",
-    "n_findings": 4,
+    "risk": "violation",
+    "n_findings": 3,
     "fragments": [
-     "#祛痘面霜 #油痘肌护肤",
-     "这款祛痘面霜，我自用了一段时间",
-     "【痘肌净颜面霜 | 清爽不闷】",
-     "用了小半个月，原来爱冒痘的那几处慢慢消停了，摸着平了不少"
+     "用了一周左右，红肿的痘慢慢瘪下去",
+     "最近脸上的痘痘消停了不少，全靠这瓶面霜",
+     "不承诺根治"
     ]
    },
    {
@@ -32,9 +31,12 @@
   "trajectory": [
    {
     "round": 1,
-    "risk": "compliant",
-    "n_findings": 0,
-    "fragments": []
+    "risk": "suspicious",
+    "n_findings": 2,
+    "fragments": [
+     "母婴级材质",
+     "今天限时尝鲜价，还送清洁刷和食谱"
+    ]
    }
   ]
  }

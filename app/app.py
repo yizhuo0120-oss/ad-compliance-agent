@@ -1,4 +1,4 @@
-"""卡6 · Streamlit 双入口 Demo：海报合规审核 Agent。
+"""卡6 · Streamlit Demo：海报/视频合规审核 + 一键生成物料（卡7/8/9/10 全能力）。
 
 启动：.venv/Scripts/python.exe -m streamlit run app/app.py --server.port 8501
 """
@@ -13,11 +13,13 @@ if str(ROOT) not in sys.path:
 
 import streamlit as st
 
-from engine.llm_client import LLMClient
-from engine.pipeline import audit_image, audit_text, finalize
-from engine.rag_layer import LawIndex
+from engine.copywriter import generate_materials, validate_materials  # noqa: E402,F401
+from engine.llm_client import LLMClient  # noqa: E402
+from engine.loop import closed_loop  # noqa: E402
+from engine.pipeline import audit_image, audit_text, audit_video, finalize  # noqa: E402
+from engine.rag_layer import LawIndex  # noqa: E402
 
-st.set_page_config(page_title="海报合规审核 Agent", page_icon="🛡️", layout="wide")
+st.set_page_config(page_title="广告合规 Agent", page_icon="🛡️", layout="wide")
 
 RISK = {"violation": ("违规", "red"), "suspicious": ("疑似违规", "orange"), "compliant": ("合规", "green")}
 SOURCE_LABEL = {"keyword": "关键词层", "rag": "法律RAG", "visual": "视觉判定"}
@@ -46,8 +48,9 @@ def render_findings(report):
     for i, f in enumerate(findings, 1):
         with st.container(border=True):
             src = SOURCE_LABEL.get(f["source"], f["source"])
+            loc = f" · 位置：{f['location']}" if f.get("location") else ""
             color = "red" if f["source"] != "keyword" else "orange"
-            st.markdown(f":{color}[**{i}. {f['type']}**]（来源：{src}） — 命中：**{f['fragment']}**")
+            st.markdown(f":{color}[**{i}. {f['type']}**]（{src}{loc}） — 命中：**{f['fragment']}**")
             law = f["law"]
             quote = law["quote"][:90] + ("…" if len(law["quote"]) > 90 else "")
             st.markdown(f"> 📜 **{law['name']}·{law['article']}**　{quote}")
@@ -61,19 +64,25 @@ def render_report(report):
     st.markdown(f"### 审核结论：:{color}[{label}]")
     st.markdown(f"**{report.get('summary', '')}**　"
                 f"· 模型 `{report['meta']['model']}` · 耗时 {report['meta']['latency_ms'] / 1000:.1f}s")
-    if report.get("input_type") == "image" and report.get("transcript"):
-        tr = report["transcript"]
+    tr = report.get("transcript") or {}
+    if report.get("input_type") == "image" and tr:
         with st.expander("📋 画面转写（供人工核对）", expanded=True):
             for t in tr.get("texts", []):
                 st.markdown(f"- {t}")
             st.caption(f"画面元素：{tr.get('visual_elements', '')}")
+    elif report.get("input_type") == "video" and tr:
+        with st.expander("📋 视频转写（画面帧 + 口播）", expanded=True):
+            for fr in tr.get("frames", []):
+                st.markdown(f"**画面 {fr['t']}s**：" + " ｜ ".join(fr.get("texts", [])))
+            for seg in tr.get("audio", []):
+                st.markdown(f"**口播 {seg['start']}~{seg['end']}s**：{seg['text']}")
     render_findings(report)
 
 
 llm, index = load_engine()
 
-st.title("🛡️ 海报合规审核 Agent")
-st.caption("粘贴海报文案或上传海报图 → 输出带法条引用的合规审核报告　｜　语料：《广告法》+《民法典》人格权编·侵权责任编")
+st.title("🛡️ 广告合规审核 Agent")
+st.caption("文案 / 海报 / 视频三形态合规审核（带法条引用）＋ 商品信息一键生成合规物料　｜　语料：《广告法》+《民法典》")
 
 mode = st.sidebar.radio("审核模式", ["双层（关键词 + 法律 RAG）", "仅关键词层"], index=0)
 use_rag = "none" if mode.startswith("仅关键词") else "full"
@@ -85,8 +94,45 @@ st.sidebar.markdown(
     "- 🟠 疑似：边缘表达，转人工复核\n"
     "- 🟢 合规：双层均无发现")
 
-tab1, tab2 = st.tabs(["📝 文案审核", "🖼️ 海报图审核"])
+tab_gen, tab1, tab2, tab3 = st.tabs(["✨ 一键生成", "📝 文案审核", "🖼️ 海报图审核", "🎬 视频审核"])
 
+# ── ✨ 一键生成 ────────────────────────────────────────────
+with tab_gen:
+    st.markdown("输入商品信息 → 自动生成四平台文案 + 宣传图（附 AI 标识）→ **自动过审，不合规自动改写**（上限 3 轮）")
+    g_name = st.text_input("商品名称", value="便携榨汁杯")
+    g_info = st.text_area("商品信息 / 卖点", value="USB充电，300ml，杯身可冷冻，母婴级材质，60秒出汁", height=80)
+    if st.button("开始一键生成", type="primary", disabled=not g_name.strip()):
+        with st.spinner("生成 → 审核 → 改写闭环运行中（约 1~2 分钟）…"):
+            try:
+                st.session_state["gen_result"] = closed_loop(
+                    llm, index, {"name": g_name.strip(), "info": g_info})
+            except Exception as e:
+                st.error(f"生成失败：{e}")
+    if "gen_result" in st.session_state:
+        result = st.session_state["gen_result"]
+        pack = result["pack"]
+        audit = pack["audit"]
+        if result["final_compliant"]:
+            st.success(f"✅ 生成完成并自动过审（自动改写 {audit['revisions']} 轮，共 {result['rounds']} 轮审核）")
+        else:
+            st.warning(f"⚠️ {result['rounds']} 轮未完全收敛，建议人工复核")
+        for p in pack["platforms"]:
+            with st.container(border=True):
+                st.markdown(f"**{p['platform']}**")
+                st.markdown(p["copy"].replace("\n", "  \n"))
+                if p["tags"]:
+                    st.caption(" ".join("#" + t.lstrip("#") for t in p["tags"]))
+        if pack.get("image_path") and Path(pack["image_path"]).exists():
+            c1, c2 = st.columns([1, 2])
+            c1.image(pack["image_path"], width=280)
+            c2.markdown(f"**生图提示词**：{pack.get('image_prompt')}")
+            c2.caption(pack.get("ai_disclosure"))
+        with st.expander("审核改写轨迹", expanded=bool(not result["final_compliant"])):
+            for t in result["trajectory"]:
+                st.markdown(f"- 第 {t['round']} 轮：{t['risk']}（{t['n_findings']} 项）"
+                            + ("　" + "；".join(t.get("fragments", [])) if t.get("fragments") else ""))
+
+# ── 📝 文案审核 ────────────────────────────────────────────
 with tab1:
     sample = st.selectbox("快速填充示例", ["（自己输入）"] + list(SAMPLES))
     text = st.text_area("海报文案", value=SAMPLES.get(sample, ""), height=130,
@@ -104,6 +150,7 @@ with tab1:
     if "text_report" in st.session_state:
         render_report(st.session_state["text_report"])
 
+# ── 🖼️ 海报图审核 ──────────────────────────────────────────
 with tab2:
     up = st.file_uploader("上传海报图（png / jpg）", type=["png", "jpg", "jpeg"])
     use_demo = st.checkbox("没有图？用内置示例海报（含极限词，可跑通流程）", value=up is None)
@@ -122,3 +169,24 @@ with tab2:
                 st.error(f"审核失败：{e}")
     if "img_report" in st.session_state:
         render_report(st.session_state["img_report"])
+
+# ── 🎬 视频审核 ────────────────────────────────────────────
+with tab3:
+    vup = st.file_uploader("上传视频（mp4 / mov，建议 ≤2 分钟）", type=["mp4", "mov"])
+    use_demo_v = st.checkbox("没有视频？用内置测试视频（画面+口播均含违规点）", value=vup is None)
+    if st.button("开始审核视频", type="primary", disabled=(vup is None and not use_demo_v)):
+        if use_demo_v:
+            vpath = ROOT / "data" / "test_video.mp4"
+        else:
+            vdir = ROOT / "data" / "uploads"
+            vdir.mkdir(exist_ok=True)
+            vpath = vdir / vup.name
+            vpath.write_bytes(vup.getvalue())
+        st.video(str(vpath))
+        with st.spinner("抽帧 + 语音转写 + 双通道审核中（约 1 分钟）…"):
+            try:
+                st.session_state["video_report"] = finalize(audit_video(llm, vpath, index, use_rag=use_rag))
+            except Exception as e:
+                st.error(f"审核失败：{e}")
+    if "video_report" in st.session_state:
+        render_report(st.session_state["video_report"])

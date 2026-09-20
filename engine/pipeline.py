@@ -67,12 +67,14 @@ def _fill_quote(findings: list[dict]) -> None:
                     break
 
 
-def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full") -> dict:
+def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full",
+               keep_internal: bool = False) -> dict:
     """文案通道全流程：关键词层 + 语义层 → 合并 → 报告。
 
     use_rag="full"：混合检索法条进提示词 + 回填条文引用（正式模式）
     use_rag="off" ：同模型但不含法条、凭自身知识判断（消融模式，quote 恒为空）
     use_rag="none"：仅关键词层（Demo 对比模式）
+    keep_internal=True：附加内部字段 _has_violation（闭环收敛判据用，不进 schema）
     """
     t0 = time.time()
     kw = keyword_layer.audit(text)
@@ -86,6 +88,7 @@ def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full")
         rag = []
     findings = _merge(rag, kw)
     _fill_quote(findings)
+    strengths = {f.get("_strength") for f in findings}
     report = {
         "input_type": "text",
         "transcript": None,
@@ -98,6 +101,8 @@ def audit_text(llm, text: str, index: rag_layer.LawIndex, use_rag: str = "full")
                  "timestamp": datetime.now().astimezone().isoformat(timespec="seconds"),
                  "cost_cny": None},
     }
+    if keep_internal:
+        report["_has_violation"] = "violation" in strengths
     return _strip_internal(report)
 
 
