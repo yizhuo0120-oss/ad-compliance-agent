@@ -1,0 +1,41 @@
+[
+ {
+  "product": "祛痘面霜",
+  "rounds": 2,
+  "final_compliant": true,
+  "revisions": 1,
+  "trajectory": [
+   {
+    "round": 1,
+    "risk": "suspicious",
+    "n_findings": 4,
+    "fragments": [
+     "#祛痘面霜 #油痘肌护肤",
+     "这款祛痘面霜，我自用了一段时间",
+     "【痘肌净颜面霜 | 清爽不闷】",
+     "用了小半个月，原来爱冒痘的那几处慢慢消停了，摸着平了不少"
+    ]
+   },
+   {
+    "round": 2,
+    "risk": "compliant",
+    "n_findings": 0,
+    "fragments": []
+   }
+  ]
+ },
+ {
+  "product": "便携榨汁杯",
+  "rounds": 1,
+  "final_compliant": true,
+  "revisions": 0,
+  "trajectory": [
+   {
+    "round": 1,
+    "risk": "compliant",
+    "n_findings": 0,
+    "fragments": []
+   }
+  ]
+ }
+]
