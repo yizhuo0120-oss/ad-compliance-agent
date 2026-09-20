@@ -28,10 +28,11 @@ load_dotenv(ROOT / ".env")
 KNOWN_PROVIDERS = ("deepseek", "zhipu", "dashscope")
 
 # 三家均为 OpenAI 兼容接口；base_url 与模型名可被 .env 同名变量覆盖
+# image 模型：None = 该供应商无生图能力（deepseek-flash 只能看图不能生图）
 _DEFAULTS = {
-    "deepseek": ("https://api.deepseek.com/v1", "deepseek-flash", "deepseek-flash"),
-    "zhipu": ("https://open.bigmodel.cn/api/paas/v4", "glm-5.3", "glm-4v-flash"),
-    "dashscope": ("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus", "qwen-vl-max"),
+    "deepseek": ("https://api.deepseek.com/v1", "deepseek-flash", "deepseek-flash", None),
+    "zhipu": ("https://open.bigmodel.cn/api/paas/v4", "glm-5.3", "glm-4v-flash", "cogview-3-flash"),
+    "dashscope": ("https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus", "qwen-vl-max", "wanx2.1-t2i-turbo"),
 }
 
 
@@ -43,6 +44,7 @@ class LLMClient:
         cfg = self._load_cfg(self.provider)
         self.text_model = cfg["text_model"]
         self.vision_model = cfg["vision_model"]
+        self.image_model = cfg["image_model"]
         self._client = OpenAI(api_key=cfg["api_key"], base_url=cfg["base_url"])
 
     @staticmethod
@@ -53,12 +55,13 @@ class LLMClient:
             raise ValueError(
                 f"供应商 {provider!r} 未配置：请检查 .env 的 LLM_PROVIDER 与 {prefix}_API_KEY"
             )
-        dft_base, dft_text, dft_vision = _DEFAULTS[provider]
+        dft_base, dft_text, dft_vision, dft_image = _DEFAULTS[provider]
         return {
             "api_key": api_key,
             "base_url": os.getenv(f"{prefix}_BASE_URL", dft_base),
             "text_model": os.getenv(f"{prefix}_TEXT_MODEL", dft_text),
             "vision_model": os.getenv(f"{prefix}_VISION_MODEL", dft_vision),
+            "image_model": os.getenv(f"{prefix}_IMAGE_MODEL", dft_image),
         }
 
     def chat(
@@ -96,6 +99,14 @@ class LLMClient:
         }]
         resp = self._client.chat.completions.create(model=model or self.vision_model, messages=messages)
         return (resp.choices[0].message.content or "").strip()
+
+    def generate_image(self, prompt: str, size: str = "1024x1024",
+                       model: str | None = None) -> str:
+        """生图：返回图片 URL（卡8 宣传图用）。供应商无生图能力时抛错。"""
+        if not self.image_model:
+            raise ValueError(f"供应商 {self.provider!r} 未配置生图模型（{self.provider.upper()}_IMAGE_MODEL）")
+        resp = self._client.images.generate(model=model or self.image_model, prompt=prompt, size=size)
+        return resp.data[0].url
 
 
 if __name__ == "__main__":
