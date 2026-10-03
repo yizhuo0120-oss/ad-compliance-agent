@@ -9,51 +9,39 @@
     "input_type": { "enum": ["text", "image", "video"] },
     "transcript": {
       "type": ["object", "null"],
-      "description": "图片版：texts+visual_elements；视频版：frames+audio；文本版 null",
-      "oneOf": [
-        {
-          "required": ["texts", "visual_elements"],
-          "properties": {
-            "texts": { "type": "array", "items": { "type": "string" } },
-            "visual_elements": {
-              "description": "画面元素描述：一句话字符串或按元素拆分的数组",
-              "type": ["string", "array"],
-              "items": { "type": "string" }
+      "description": "文本版 null；图片版：texts+visual_elements；视频版：frames+audio",
+      "properties": {
+        "texts": { "type": "array", "items": { "type": "string" } },
+        "visual_elements": {
+          "description": "画面元素描述：一句话字符串或按元素拆分的数组",
+          "type": ["string", "array"],
+          "items": { "type": "string" }
+        },
+        "frames": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["t", "texts"],
+            "properties": {
+              "t": { "type": "number", "description": "帧时间戳（秒）" },
+              "texts": { "type": "array", "items": { "type": "string" } },
+              "visual_elements": { "type": ["string", "array"], "items": { "type": "string" } }
             }
           }
         },
-        {
-          "required": ["frames", "audio"],
-          "properties": {
-            "frames": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["t", "texts"],
-                "additionalProperties": false,
-                "properties": {
-                  "t": { "type": "number", "description": "帧时间戳（秒）" },
-                  "texts": { "type": "array", "items": { "type": "string" } },
-                  "visual_elements": { "type": ["string", "array"], "items": { "type": "string" } }
-                }
-              }
-            },
-            "audio": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["start", "end", "text"],
-                "additionalProperties": false,
-                "properties": {
-                  "start": { "type": "number" },
-                  "end": { "type": "number" },
-                  "text": { "type": "string" }
-                }
-              }
+        "audio": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end", "text"],
+            "properties": {
+              "start": { "type": "number" },
+              "end": { "type": "number" },
+              "text": { "type": "string" }
             }
           }
         }
-      ]
+      }
     },
     "risk_level": { "enum": ["violation", "suspicious", "compliant"] },
     "findings": {

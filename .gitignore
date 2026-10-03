@@ -1,9 +1,15 @@
 # 密钥与配置 —— 永不提交
 .env
+.env.*
+!.env.example
+API key.txt
+*.pem
+*.key
 
 # Python
 __pycache__/
 *.pyc
+.pytest_cache/
 .venv/
 venv/
 

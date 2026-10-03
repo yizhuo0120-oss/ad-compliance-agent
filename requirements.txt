@@ -7,3 +7,4 @@ sentence-transformers>=3.0
 faiss-cpu>=1.8
 zhconv>=1.4
 streamlit>=1.36
+faster-whisper>=1.0

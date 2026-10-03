@@ -61,14 +61,20 @@ graph LR
 ## 快速开始
 
 ```bash
-python -m venv .venv && .venv/Scripts/activate    # Windows
+python -m venv .venv
+.venv\Scripts\Activate.ps1    # Windows PowerShell
 pip install -r requirements.txt
-# .env 已就位（LLM_PROVIDER 切换供应商：deepseek | zhipu | dashscope，换模型零改码）
+Copy-Item .env.example .env
+# 编辑 .env，填写自己供应商的 API Key。
+# LLM_PROVIDER 可选 deepseek | zhipu | dashscope，模型名称也在 .env 中配置。
 
 python -m streamlit run app/app.py    # 打开 http://localhost:8501
 python eval/run_eval.py               # 复现评估指标（需 API Key）
-python eval/eval_dataset.py           # 评测集加载自检
 ```
+
+视频语音转写使用 `faster-whisper`，首次运行会下载模型；Windows 所需的 FFmpeg / FFprobe 已放在 `tools/`。本地模型缓存、API Key 和用户上传文件不会随仓库发布。
+
+海报评测原图仅保存在本地，仓库包含标注与合成脚本，因此新克隆的仓库不能直接通过完整图片评测集自检。可用 `python eval/make_synthetic_posters.py` 生成合成样本；完整评测需要另行准备标注对应的原图。
 
 ## 目录结构
 
@@ -105,5 +111,3 @@ tools/                ffmpeg 静态包 / TTS 脚本
 ## 排期与进度
 
 一期（审核，第 1~2 周）：✅ 全部完成。二期（生成闭环 + 视频审核，第 3~4 周）：✅ 全部完成。
-
-详细过程文档见上级目录《立项任务卡.md》《第一期计划手册.md》《第二期计划手册.md》。
