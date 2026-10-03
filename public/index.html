@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="广告合规 Agent：审核文案与海报，引用法律条文，生成并审核多平台广告文案。">
+  <title>广告合规 Agent · 让好文案安心被看见</title>
+  <link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="backdrop"></div>
+  <header class="topbar"><a class="brand" href="/" aria-label="广告合规 Agent 首页"><span class="brand-icon">A</span><span>广告合规 Agent<small>AD COMPLIANCE STUDIO</small></span></a><div class="top-actions"><span id="service-status" class="status"><i></i>正在连接服务</span><a href="https://github.com/yizhuo0120-oss/ad-compliance-agent" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></header>
+  <main>
+    <section class="hero"><div><span class="eyebrow">从灵感，到安心发布</span><h1>让好文案，<br><span>安心被看见。</span></h1><p>检查文案与海报中的广告风险，找到对应法条与改写方向。<br>或从一个商品出发，生成适合不同平台的推广文案。</p></div><div class="hero-note"><span class="note-label">让创意多一道把关</span><strong>审核 · 引用 · 改写</strong><p>《广告法》与《民法典》法条知识库<br>覆盖极限词、虚假误导等八类风险</p></div></section>
+    <section class="workspace" aria-label="广告合规工作台">
+      <div class="workspace-top"><div><span class="eyebrow">你的广告工作台</span><h2>创作有方向，发布有依据</h2></div><span class="workspace-badge">Vercel 在线版</span></div>
+      <div id="access-panel" class="access-panel" hidden><label for="access-token">访问口令</label><input id="access-token" type="password" autocomplete="off" placeholder="输入部署者提供的访问口令"><span>本服务已设置访问口令</span></div>
+      <div class="tabs" role="tablist" aria-label="工作模式"><button class="tab active" id="tab-text" role="tab" aria-selected="true" aria-controls="panel-text" data-tab="text">01 <span>文案审核</span></button><button class="tab" id="tab-image" role="tab" aria-selected="false" aria-controls="panel-image" data-tab="image" tabindex="-1">02 <span>海报审核</span></button><button class="tab" id="tab-generate" role="tab" aria-selected="false" aria-controls="panel-generate" data-tab="generate" tabindex="-1">03 <span>广告生成</span></button></div>
+      <div class="work-grid"><div class="input-pane">
+        <section id="panel-text" role="tabpanel" aria-labelledby="tab-text"><div class="section-heading"><h3>把文案交给我们</h3><span>支持最多 8,000 字</span></div><p class="hint">商品介绍、活动文案、社交媒体推广，都可以在这里检查。</p><form id="text-form"><label class="sr-only" for="ad-text">待审核的广告文案</label><textarea id="ad-text" maxlength="8000" rows="9" placeholder="在这里粘贴你的推广文案…" required></textarea><div class="field-footer"><button type="button" class="text-button" id="load-sample">试试示例文案 ↗</button><span id="text-count">0 / 8000</span></div><div class="controls"><label for="audit-mode">审核方式<select id="audit-mode"><option value="full">法条检索 + 模型语义审核</option><option value="keyword">关键词初筛（无需 API Key）</option></select></label><button type="submit" class="primary">开始审核 <span>↗</span></button></div></form></section>
+        <section id="panel-image" role="tabpanel" aria-labelledby="tab-image" hidden><div class="section-heading"><h3>从文字，看到整个画面</h3><span>单张 ≤ 3 MB</span></div><p class="hint">转写海报中的文字，检查用词与画面元素中的风险。</p><form id="image-form"><label class="upload-area" for="poster-file"><span class="upload-symbol">＋</span><strong id="upload-title">选择一张广告海报</strong><span>PNG、JPEG、WebP · 最大 2000 万像素</span><input type="file" id="poster-file" accept="image/png,image/jpeg,image/webp" required></label><img id="poster-preview" class="poster-preview" alt="待审核海报预览" hidden><div class="controls right"><button class="primary" type="submit">审核海报 <span>↗</span></button></div></form></section>
+        <section id="panel-generate" role="tabpanel" aria-labelledby="tab-generate" hidden><div class="section-heading"><h3>把商品优势，变成好文案</h3></div><p class="hint">提炼卖点 → 按平台生成 → 合规审核 → 必要时自动改写。</p><form id="generate-form"><label class="field-label" for="product-name">商品名称<input id="product-name" maxlength="100" placeholder="例如：便携榨汁杯" required></label><label class="field-label" for="product-info">商品信息与真实卖点<textarea id="product-info" maxlength="3000" rows="4" placeholder="例如：USB 充电，300ml 容量，易清洗，适合通勤携带" required></textarea></label><fieldset><legend>选择投放平台</legend><div class="platform-options"><label><input type="checkbox" name="platform" value="小红书" checked>小红书</label><label><input type="checkbox" name="platform" value="抖音口播">抖音口播</label><label><input type="checkbox" name="platform" value="淘宝主图">淘宝主图</label><label><input type="checkbox" name="platform" value="朋友圈">朋友圈</label></div></fieldset><div class="controls right"><button class="primary" type="submit">生成并审核 <span>↗</span></button></div></form></section>
+      </div><aside class="output-pane" aria-label="处理结果"><div class="section-heading"><h3 id="result-title">审核结果</h3><button type="button" id="download-report" class="text-button" hidden>下载报告 ↓</button></div><div id="progress" class="progress" role="status" aria-live="polite" hidden><span class="spinner"></span><span id="progress-text">正在处理…</span></div><div id="error" class="error" role="alert" hidden></div><div id="result" aria-live="polite"><div class="empty-state"><div class="empty-symbol">✧</div><h4>让每次发布，多一份安心</h4><p>提交文案或海报后，<br>这里会展示风险、法条引用与改写建议。</p><div class="empty-steps"><span>01 风险识别</span><span>02 法条引用</span><span>03 改写方向</span></div></div></div></aside></div>
+    </section>
+    <footer><p>在线版支持文案、海报与广告生成；视频审核可使用仓库中的本地完整版。</p><p>审核结果用于辅助判断，疑似风险需要人工复核。在线版采用轻量法条检索。</p></footer>
+  </main>
+</body>
+</html>

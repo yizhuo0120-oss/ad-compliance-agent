@@ -36,6 +36,8 @@ def transcribe(llm, image_path: str | Path) -> dict:
     """VL 转写：返回 {texts: [...], visual_elements: str}。"""
     raw = llm.vision(TRANSCRIBE_PROMPT, image_path)
     data = extract_json(raw)
+    if not isinstance(data.get("texts"), list) or "visual_elements" not in data:
+        raise ValueError("模型转写响应缺少文字或画面描述")
     return {"texts": [str(t) for t in data.get("texts", [])],
             "visual_elements": str(data.get("visual_elements", ""))}
 
@@ -54,6 +56,8 @@ def audit_visual(llm, texts: list[str], visual_elements: str, index, k: int | No
     )
     raw = llm.chat(prompt, system=VISUAL_SYSTEM, json_mode=True, temperature=0.1)
     data = extract_json(raw)
+    if not isinstance(data.get("findings"), list):
+        raise ValueError("模型视觉审核响应缺少 findings 数组")
     corpus = {(r["law"], r["article"]): r["text"] for r in articles}
     findings = []
     for f in data.get("findings", []):

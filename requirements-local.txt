@@ -1,0 +1,7 @@
+# 完整 Streamlit / 本地向量检索 / 视频版
+-r requirements.txt
+pytest>=8.0
+sentence-transformers>=3.0
+faiss-cpu>=1.8
+streamlit>=1.36
+faster-whisper>=1.0

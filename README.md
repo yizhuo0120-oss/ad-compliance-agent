@@ -4,6 +4,33 @@
 > 语料：《广告法》全文 +《民法典》人格权编·侵权责任编（RAG，引用溯源到条号）
 > 个人项目 · AIGC 方向 ｜ 一期（审核）+ 二期（生成闭环）均已完成
 
+## 部署到 Vercel
+
+仓库包含两个入口：`server.py` 是 Vercel / FastAPI 在线版，`app/app.py` 是本地 Streamlit 完整版。`pyproject.toml` 已显式指定 `server:app`，解决 Vercel 误把 Streamlit 页面当作 Python Web 入口的问题。
+
+1. 导入此 GitHub 仓库，或打开已有 Vercel 项目。
+2. 在 **Settings → Build and Deployment** 中，Framework Preset 选择 **FastAPI**，Root Directory 使用仓库根目录（留空），关闭此前手填的 Build Command、Install Command、Output Directory 覆盖，使用默认值。
+3. 在 **Settings → Environment Variables** 添加 `LLM_PROVIDER` 和对应供应商的 `*_API_KEY`；模型名称与接口地址可按 `.env.example` 设置。密钥只放在 Vercel 环境变量，不提交到 GitHub。选择 Production 环境；需要预览版本时也选择 Preview。
+4. 使用最新 `main` 分支重新部署；若首次修复后未自动触发，可在 Deployments 中重新部署。
+
+例如使用智谱时设置 `LLM_PROVIDER=zhipu`、`ZHIPU_API_KEY`、`ZHIPU_TEXT_MODEL`、`ZHIPU_VISION_MODEL`；生图额外设置 `ZHIPU_IMAGE_MODEL`。模型名称与权限以你自己的供应商账户为准。也支持 DeepSeek 与百炼的 OpenAI 兼容接口，海报审核要求所选视觉模型支持图片输入。
+
+可设置 `DEMO_ACCESS_TOKEN` 为一个自行选择的访问口令；设置后页面会出现口令输入框，模型接口需要该口令。没有配置 API Key 时，页面仍能打开，并可体验关键词初筛；其他功能会提示完成服务配置。
+
+在线版保留文案审核、海报审核、多平台文案生成与宣传场景图生成。检索使用 **中文二元词 BM25 + 关键词法条映射**，不安装 Torch / BGE / FAISS；本地完整版仍使用 BGE 向量检索。下面的评测数字来自本地完整版，**不能直接当作在线版准确率**。在线版一次最多审核 / 改写两轮，疑似风险和未消除的违规风险明确交给人工；宣传图通过单独请求生成。
+
+视频审核保留在本地完整版。在线版图片上限为 3 MB，临时文件写入系统临时目录并在请求结束后清理；生成图直接返回浏览器，不依赖云端磁盘长期保存。Windows FFmpeg、本地模型、评测素材等由部署配置排除。
+
+本地运行在线版：
+
+```powershell
+pip install -r requirements.txt
+python -m uvicorn server:app --reload --port 8000
+# 打开 http://localhost:8000
+```
+
+部署配置依据：[Vercel FastAPI 文档](https://vercel.com/docs/frameworks/backend/fastapi)、[Python 入口与依赖](https://vercel.com/docs/functions/runtimes/python)。
+
 ## 演示截图
 
 | | |
@@ -58,12 +85,12 @@ graph LR
 - **闭环收敛**：违规卖点商品首轮检出 3 项违规 → 自动带法条改写 1 轮 → 合规；正常商品 0 改写零误伤
 - **视频定位**：3/3 findings 标到「画面 X 秒 / 口播 X 秒」，全链路 43s
 
-## 快速开始
+## 本地完整版快速开始
 
 ```bash
 python -m venv .venv
 .venv\Scripts\Activate.ps1    # Windows PowerShell
-pip install -r requirements.txt
+pip install -r requirements-local.txt
 Copy-Item .env.example .env
 # 编辑 .env，填写自己供应商的 API Key。
 # LLM_PROVIDER 可选 deepseek | zhipu | dashscope，模型名称也在 .env 中配置。

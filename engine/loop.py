@@ -44,7 +44,7 @@ def _rewrite_one(llm, platform: str, copy: str, findings_json: str) -> dict:
 
 
 def closed_loop(llm, index, product: dict, platforms: list[str] | None = None,
-                max_rounds: int = MAX_ROUNDS) -> dict:
+                max_rounds: int = MAX_ROUNDS, generate_image: bool = True) -> dict:
     """完整闭环。返回 {pack, trajectory, rounds, final_compliant}。"""
     pack = generate_materials(llm, dict(product), platforms)
     trajectory = []
@@ -82,7 +82,7 @@ def closed_loop(llm, index, product: dict, platforms: list[str] | None = None,
                      "final_compliant": final_compliant}
 
     # 宣传图：收敛后用最终合规文案出图（附 AI 显式标识）；生图失败不拖垮闭环
-    if final_compliant:
+    if final_compliant and generate_image:
         try:
             first_copy = pack["platforms"][0]["copy"]
             pack.update(generate_promo(llm, product, copy_text=first_copy))
@@ -91,5 +91,6 @@ def closed_loop(llm, index, product: dict, platforms: list[str] | None = None,
             print(f"  宣传图生成失败（不影响文案交付）：{str(e)[:120]}", flush=True)
 
     validate_materials(pack)
-    return {"pack": pack, "trajectory": trajectory,
+    public_report = {k: v for k, v in report.items() if not k.startswith("_")}
+    return {"pack": pack, "trajectory": trajectory, "report": public_report,
             "rounds": round_no, "final_compliant": final_compliant}

@@ -37,7 +37,9 @@ def extract_json(raw: str) -> dict:
     """
     raw = (raw or "").strip()
     try:
-        return json.loads(raw)
+        parsed = json.loads(raw)
+        if isinstance(parsed, dict):
+            return parsed
     except Exception:
         pass
     dec = json.JSONDecoder()
@@ -45,10 +47,11 @@ def extract_json(raw: str) -> dict:
     while idx != -1:
         try:
             obj, _end = dec.raw_decode(raw[idx:])
-            return obj
+            if isinstance(obj, dict):
+                return obj
         except Exception:
             idx = raw.find("{", idx + 1)
-    return {}
+    raise ValueError("模型未返回有效的 JSON 对象")
 
 # 三家均为 OpenAI 兼容接口；base_url 与模型名可被 .env 同名变量覆盖
 # image 模型：None = 该供应商无生图能力（deepseek-flash 只能看图不能生图）
@@ -76,13 +79,19 @@ def image_client() -> "LLMClient":
 class LLMClient:
     """OpenAI 兼容接口的统一客户端。"""
 
-    def __init__(self, provider: str | None = None):
+    def __init__(self, provider: str | None = None, *, timeout: float | None = None,
+                 max_retries: int | None = None):
         self.provider = (provider or os.getenv("LLM_PROVIDER", "deepseek")).strip().lower()
         cfg = self._load_cfg(self.provider)
         self.text_model = cfg["text_model"]
         self.vision_model = cfg["vision_model"]
         self.image_model = cfg["image_model"]
-        self._client = OpenAI(api_key=cfg["api_key"], base_url=cfg["base_url"])
+        options = {}
+        if timeout is not None:
+            options["timeout"] = timeout
+        if max_retries is not None:
+            options["max_retries"] = max_retries
+        self._client = OpenAI(api_key=cfg["api_key"], base_url=cfg["base_url"], **options)
 
     @staticmethod
     def _load_cfg(provider: str) -> dict:

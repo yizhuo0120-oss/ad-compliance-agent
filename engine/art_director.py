@@ -50,7 +50,18 @@ def add_ai_badge(img_path: Path, text: str = "AI生成") -> None:
     from PIL import Image, ImageDraw, ImageFont
     img = Image.open(img_path).convert("RGB")
     d = ImageDraw.Draw(img, "RGBA")
-    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", max(28, img.width // 36))
+    font_size = max(16, min(40, img.width // 36))
+    font = None
+    for candidate in ("C:/Windows/Fonts/msyh.ttc", "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc"):
+        try:
+            font = ImageFont.truetype(candidate, font_size)
+            break
+        except OSError:
+            pass
+    if font is None:
+        # Serverless Linux images do not ship Windows fonts. Keep the badge legible.
+        text = "AI generated"
+        font = ImageFont.load_default(size=font_size)
     bbox = d.textbbox((0, 0), text, font=font)
     w, h = bbox[2] - bbox[0] + 24, bbox[3] - bbox[1] + 14
     x, y = img.width - w - 24, img.height - h - 24
@@ -60,7 +71,7 @@ def add_ai_badge(img_path: Path, text: str = "AI生成") -> None:
 
 
 def generate_promo(llm, product: dict, copy_text: str = "",
-                   out_dir: Path = OUT_DIR) -> dict:
+                   out_dir: Path = OUT_DIR, image_llm=None) -> dict:
     """全流程：提示词 → 生图 → 下载 → 叠标识。返回物料包 image_* 三字段。
 
     文字提示词用当前 llm；生图自动切换到有生图能力的供应商（如智谱 CogView）。
@@ -69,12 +80,16 @@ def generate_promo(llm, product: dict, copy_text: str = "",
     image_prompt = make_image_prompt(llm, product, copy_text)
     if not image_prompt:
         raise ValueError("生图提示词为空")
-    img_llm = llm if llm.image_model else image_client()
+    img_llm = image_llm or (llm if llm.image_model else image_client())
     url = img_llm.generate_image(image_prompt)
     out_dir.mkdir(parents=True, exist_ok=True)
     slug = re.sub(r"[^\w]", "", product["name"])[:16] or "product"
     path = out_dir / f"{slug}-{datetime.now().strftime('%H%M%S')}.png"
-    urllib.request.urlretrieve(url, path)
+    with urllib.request.urlopen(url, timeout=40) as response:
+        image_data = response.read(20 * 1024 * 1024 + 1)
+    if len(image_data) > 20 * 1024 * 1024:
+        raise ValueError("生成图片超过 20 MB")
+    path.write_bytes(image_data)
     add_ai_badge(path)
     return {
         "image_prompt": image_prompt,

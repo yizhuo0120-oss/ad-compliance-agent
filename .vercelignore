@@ -1,0 +1,20 @@
+.git/
+.venv/
+venv/
+models/
+.pytest_cache/
+**/__pycache__/
+.env
+.env.*
+API key.txt
+tools/
+eval/
+tests/
+docs/demo/
+data/frames/
+data/generated/
+data/eval_images/
+data/test_*
+data/laws/*.npy
+slide*.png
+concat.txt

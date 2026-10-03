@@ -77,6 +77,8 @@ def write_copy(llm, platform: str, product: dict) -> dict:
     )
     raw = llm.chat(prompt, system=COPY_SYSTEM, json_mode=True, temperature=0.7)
     data = _extract_json(raw)
+    if not isinstance(data.get("copy"), str) or not data["copy"].strip():
+        raise ValueError("模型未返回有效的广告文案")
     return {
         "platform": platform,
         "copy": str(data.get("copy", "")).strip(),

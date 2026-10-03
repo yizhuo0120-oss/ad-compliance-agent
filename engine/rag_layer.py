@@ -149,6 +149,8 @@ def audit_semantic(text: str, index: LawIndex, llm, k: int | None = None,
     prompt = f"待审文案：\n{text}\n\n给定法条：\n{law_block}\n\n请输出 JSON 判定。"
     raw = llm.chat(prompt, system=JUDGE_SYSTEM, json_mode=True, temperature=0.1)
     data = extract_json(raw)
+    if not isinstance(data.get("findings"), list):
+        raise ValueError("模型审核响应缺少 findings 数组")
 
     corpus = {(r["law"], r["article"]): r["text"] for r in candidates}
     findings = []
